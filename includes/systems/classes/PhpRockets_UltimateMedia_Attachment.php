@@ -16,6 +16,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Attachment')) {
         public function userEndHook()
         {
             add_action('wp_get_attachment_url', [$this, 'getAttachmentUrl'], $this::$configs->default_order, 2);
+            add_filter('wp_calculate_image_srcset', [$this, 'calculateImageSrcset'], $this::$configs->default_order, 5);
             add_filter('ucm_storage_media_url_rewrite', [$this, 'applyCloudStorageUrl'], $this::$configs->default_order, 3);
 
             /**
@@ -36,6 +37,30 @@ if (!class_exists('PhpRockets_UltimateMedia_Attachment')) {
             }
 
             return $url;
+        }
+
+        /**
+         * WordPress Responsive Images
+         *
+         * @param $sources
+         * @param $size_array
+         * @param $image_src
+         * @param $image_meta
+         * @param $post_id
+         * @return mixed
+         */
+        public static function calculateImageSrcset($sources, $size_array, $image_src, $image_meta, $post_id)
+        {
+            $attachment_storage = get_post_meta($post_id, '_ucm_storage_adapter', true);
+            if ($attachment_storage) {
+                $storage_metadata = get_post_meta($post_id, '_ucm_storage_metadata', true);
+                $storage_metadata = unserialize($storage_metadata);
+                foreach ($sources as $size => $source) {
+                    $sources[$size]['url'] = apply_filters('ucm_storage_media_url_rewrite', $source['url'], $attachment_storage, $storage_metadata);
+                }
+            }
+
+            return $sources;
         }
 
         /**
