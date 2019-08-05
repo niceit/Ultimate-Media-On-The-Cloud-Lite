@@ -1,0 +1,605 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Ultimate Media On The Cloud (Lite)\n"
+"POT-Creation-Date: 2019-06-28 23:15+0700\n"
+"PO-Revision-Date: 2019-06-28 23:15+0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: ../../..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: ultimate-media-on-the-cloud.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:69
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:529
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:167
+msgid "Please complete all fields."
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:70
+msgid "Please fill App Key / Secret and choose your Region"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:71
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:534
+msgid "Please fill bucket name"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:72
+msgid "Please choose bucket region"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:73
+msgid "You have to put CORS settings to save!"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:74
+msgid "Please choose a bucket"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:75
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:535
+msgid "Are you sure want to remove this account?\\nThis can not be undone."
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:102
+msgid "Set up Amazon S3 Account by the form below"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:116
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:105
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:216
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:305
+msgid "Save Settings"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:125
+msgid "App Key"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:131
+msgid "Amazon S3 Key"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:144
+msgid "Amazon S3 Secret Key"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:148
+msgid "Learn how to obtain Amazon S3 App Key & Secret"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:149
+msgid "How to get App Key & Secret"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:150
+msgid "Amazon Console"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:154
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:142
+msgid "Connect"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:188
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:193
+msgid "Default Bucket"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:197
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:202
+msgid "Click Connect button above to fetch available Buckets."
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:201
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:206
+msgid "Cloud Path"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:207
+msgid "Amazon S3 Cloud Path"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:211
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:216
+msgid "Target folder at cloud storage you want to save media to."
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:215
+msgid "Region"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:224
+msgid ""
+"Important: Please choose the correct region which you registered at Amazon "
+"S3 Service. If you use a region other than the US East (N. Virginia) "
+"endpoint to create a bucket, you must set the LocationConstraint bucket "
+"parameter to the same region. <a href=\""
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:228
+msgid "Storage Class"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:231
+msgid "-Choose-"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:237
+msgid "Storage Class: You can read the documentation about the"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:237
+msgid "Amazon S3 Storage Class"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:276
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:287
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:342
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:353
+msgid "Account information updated."
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:278
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:289
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:344
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:355
+msgid "An error occurred while updating account. Try again later!"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:293
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:488
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:73
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:131
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:447
+msgid "Invalid request"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_AmazonS3_AddOn.php:486
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:471
+msgid "Buckets are loaded"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:90
+msgid "Set up Google Cloud Account by the form below"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:115
+msgid "Project Id"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:121
+msgid "Google Cloud Project Id"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:128
+msgid "Authentication Key File"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:138
+msgid "Obtain Google Cloud Project Id & Authentication Key "
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:138
+msgid "Google Console"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:162
+msgid "Invalid Google Cloud configs"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:169
+msgid "Unable to Fetch Buckets"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:212
+msgid "Google Cloud Path"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:248
+msgid "Authentication key file is required."
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:256
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:388
+msgid "Invalid Auth Key mime-type. Allowed key file types: p12 or json"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:265
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:398
+msgid ""
+"Unable to save your config file. Please check your host upload folder "
+"permission!"
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:272
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:405
+msgid ""
+"Account has corrupted data and unable to locate key file. Please re-upload "
+"your Authentication Key File."
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:381
+msgid "You need to upload an Authentication Key File."
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:530
+msgid "Please fill Project ID."
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:531
+msgid "Choose Authentication Key File."
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:532
+msgid "Unable to load Buckets with this Auth Key file."
+msgstr ""
+
+#: includes/addons/PhpRockets_UCM_GoogleCloudStorage_AddOn.php:533
+msgid "Please choose Bucket."
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia.php:99
+msgid ""
+"<div style=\"border-left: 6px solid red; padding: 5px 0px 5px 20px; margin-"
+"top: 10px; margin-bottom: 10px; background: #FFF;\">\n"
+"                                    <h4>Ultimate Cloud Media Plugin Error!</"
+"h4>\n"
+"                                    <p>"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia.php:127
+msgid ""
+"<div style=\"border-left: 6px solid red; padding: 5px 0px 5px 20px; margin-"
+"top: 10px; margin-bottom: 10px; background: #FFF;\">\n"
+"                                        <h4>Ultimate Media On The Cloud "
+"Plugin Error!</h4>\n"
+"                                        <p>"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia.php:140
+#: includes/systems/tpl/pro-upgrade.php:11
+msgid "Upgrade To Pro"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia.php:142
+msgid ""
+"<div style=\"border-left: 6px solid red; padding: 5px 0px 5px 20px; margin-"
+"top: 10px; margin-bottom: 10px; background: #FFF;\">\n"
+"                                        <h4>Ultimate Media On The Cloud "
+"Plugin Error!</h4>\n"
+"                                        <p>"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia.php:181
+msgid ""
+"<div style=\"border-left: 6px solid red; padding: 5px 0px 5px 20px; margin-"
+"top: 10px; margin-bottom: 10px; background: #FFF;\">\n"
+"                                        <h4>Ultimate Media On The Cloud "
+"Plugin Error!</h4>\n"
+"                                        <p>There's another plugin is doing "
+"same functionally. Please deactive it! Conflicting as listed below:</p>\n"
+"                                        <p>"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia.php:254
+msgid ""
+"Ultimate Cloud Media is inactive. Media is not saved to the Cloud! Check "
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia.php:254
+#: includes/systems/classes/PhpRockets_UltimateMedia.php:268
+msgid "General Settings"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia.php:252
+msgid ""
+"<div class=\"notice notice-error error\">\n"
+"                 <h4>Ultimate Media On The Cloud Notice</h4>\n"
+"                 <p>"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia.php:268
+msgid "Please update Settings for Cloud Storage Account! Check "
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia.php:266
+msgid ""
+"<div class=\"notice notice-success updated\">\n"
+"                 <h4>Ultimate Media On The Cloud Notice</h4>\n"
+"                 <p>"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Attachment.php:79
+msgid "Invalid cloud storage account configuration"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Hooks.php:89
+msgid "Settings"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Hooks.php:90
+msgid "Documentations"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Install.php:30
+msgid ""
+"Welcome to Ultimate Cloud Media. Plugin just got activated, you can go to <a "
+"href=\""
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Install.php:159
+msgid ""
+"Ultimate Cloud Media can not be activated.<strong>SQL Error</strong>. Unable "
+"to create required table, please check SQL account permission."
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:70
+msgid "General settings updated."
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:107
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:120
+msgid "Only "
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:128
+msgid "Advanced settings updated."
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:168
+msgid "Error while submitting form. Please try again!"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:199
+msgid "Plugin is disabled. Media is not saved to the cloud!"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:202
+msgid "Please setup Cloud Storage Account!"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:226
+msgid "Active Cloud Media?"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:235
+msgid ""
+"Choose <b>Yes</b> If you want plugin to work. <b>No</b> if you want to "
+"disable plugin temporary."
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:239
+msgid "Cloud Default Active"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:248
+msgid "Choose the default Cloud Storage Service."
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:252
+msgid "Keep a copy of media?"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:261
+msgid ""
+"When media is uploaded and pushed to the cloud, it will keep a copy at your "
+"host."
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:265
+msgid "Scheme Protocol"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:277
+msgid "Plugin had been setup and running."
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:315
+msgid "Delete Cloud File?"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:324
+msgid "Remove cloud media too when you delete a media from Wordpress"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:339
+msgid ""
+"Specify the post types you want to be saved media on cloud. Ex: page, "
+"post... <b>Leave empty for all post types</b>"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:354
+msgid ""
+"Specify the file types you want to be saved media on cloud. Ex: jpg, png... "
+"<b>Leave empty for all file types</b>"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:441
+msgid "Your feedback has been sent. Thank you!"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:443
+msgid ""
+"Unable to send mail from your host. Please contact your hosting provider!"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:471
+msgid "Send"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:486
+msgid "Type your fullname"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:498
+msgid "Type your email"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:511
+msgid "Your question or need support?"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:518
+msgid "Type"
+msgstr ""
+
+#: includes/systems/classes/PhpRockets_UltimateMedia_Settings.php:540
+msgid "Message Body"
+msgstr ""
+
+#: includes/systems/tpl/about-pro.php:2
+msgid "Migration between Host and Clouds, Cloud and Cloud."
+msgstr ""
+
+#: includes/systems/tpl/about-pro.php:2
+msgid "What is this?"
+msgstr ""
+
+#: includes/systems/tpl/about-pro.php:3
+msgid "Unlimited Cloud Accounts."
+msgstr ""
+
+#: includes/systems/tpl/about-pro.php:4
+msgid "Unlocked post types filter, no limitation on post types setting."
+msgstr ""
+
+#: includes/systems/tpl/about-pro.php:5
+msgid "Unlocked file types filter, no limitation on file types setting."
+msgstr ""
+
+#: includes/systems/tpl/about-pro.php:6
+msgid "Enable / Disable cloud storage for specify user."
+msgstr ""
+
+#: includes/systems/tpl/about-pro.php:7
+msgid "Inline Creating Buckets."
+msgstr ""
+
+#: includes/systems/tpl/about-pro.php:8
+msgid "Bucket CORS configuration."
+msgstr ""
+
+#: includes/systems/tpl/about-pro.php:9
+msgid "Support cloud encryption, CloudFront and CDN."
+msgstr ""
+
+#: includes/systems/tpl/about-pro.php:10
+msgid "Wordpress Multi Sites support."
+msgstr ""
+
+#: includes/systems/tpl/about-pro.php:11
+msgid "Master password to protect your account config."
+msgstr ""
+
+#: includes/systems/tpl/common/toast-message.php:7
+msgid "Settings saved!"
+msgstr ""
+
+#: includes/systems/tpl/documentation.php:4
+msgid "Documentation"
+msgstr ""
+
+#: includes/systems/tpl/documentation.php:8
+msgid "You can read plugin help and documentation online here"
+msgstr ""
+
+#: includes/systems/tpl/documentation.php:11
+#: includes/systems/tpl/feedback.php:10
+msgid "Join and place your question at plugin Community page. Visit"
+msgstr ""
+
+#: includes/systems/tpl/documentation.php:15
+#: includes/systems/tpl/feedback.php:18 includes/systems/tpl/pro-upgrade.php:17
+msgid "Back to Settings"
+msgstr ""
+
+#: includes/systems/tpl/feedback.php:6
+msgid "Support & Feedback"
+msgstr ""
+
+#: includes/systems/tpl/feedback.php:14
+msgid "OR Submit support request to us"
+msgstr ""
+
+#: includes/systems/tpl/pro-upgrade.php:4
+msgid "Upgrade To Pro Version"
+msgstr ""
+
+#: includes/systems/tpl/pro-upgrade.php:6
+msgid ""
+"Once you upgrade the <b>Ultimate Media On The Cloud Pro Version</b> you can "
+"unlock these following features"
+msgstr ""
+
+#: includes/systems/tpl/settings.php:14
+msgid "Advanced"
+msgstr ""
+
+#: includes/systems/tpl/settings.php:15
+msgid "Help"
+msgstr ""
+
+#: includes/systems/tpl/settings.php:41
+msgid "You can read "
+msgstr ""
+
+#: includes/systems/tpl/settings.php:42
+msgid "Online Documentation"
+msgstr ""
+
+#: includes/systems/tpl/settings.php:47
+msgid "Post your question to the support forum "
+msgstr ""
+
+#: includes/systems/tpl/settings.php:48
+msgid "Plugin page"
+msgstr ""
+
+#: includes/systems/tpl/settings.php:53
+msgid "What news in Pro version?"
+msgstr ""
+
+#: includes/systems/tpl/settings.php:54
+msgid "With <b>Pro Version</b> you can have unlocked features as below"
+msgstr ""
+
+#: includes/systems/tpl/settings.php:59
+msgid "Upgrade Pro Version"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Ultimate Media On The Cloud (Lite)"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/extend/plugins/ultimate-media-on-the-cloud-lite"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Migrate, move and mange wordpress media on the Cloud Storage Platforms like "
+"Amazon S3, Google Cloud and other platforms... Help you to save hosting "
+"space/bandwidth and faster delivery the site assets/medias. Support "
+"encrypting, optimization, CDN and CloudFront."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "PhpRockets Team"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://www.phprockets.com"
+msgstr ""

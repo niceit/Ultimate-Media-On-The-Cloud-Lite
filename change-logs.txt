@@ -1,0 +1,8 @@
+= 1.22.05 =
+* Support Amazon S3.
+* Support Google Cloud Storage.
+* Post / Page filter.
+* File types filter.
+* Keep/UnKeep local media
+* HTTP/HTTPS cloud source protocols
+* Delete Cloud media when remove attachment.
