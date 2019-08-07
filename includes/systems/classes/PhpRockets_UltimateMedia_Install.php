@@ -9,6 +9,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Install')) {
     class PhpRockets_UltimateMedia_Install
     {
         private static $plugin_db_prefix = 'phpr_ucm_';
+        private static $pluginConfigs;
 
         /**
          * Do when plugin is being activated
@@ -17,6 +18,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Install')) {
          */
         public static function whileActivation()
         {
+            self::$pluginConfigs = include ULTIMATE_MEDIA_PLG_DIR .'/includes/requires/plugin.configs.php';
             $requirement_check = self::requirementsCheck();
             if ($requirement_check) {
                 return;
@@ -33,6 +35,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Install')) {
                 } );
             }
             self::initialOptions();
+            self::registerTheBlogUrl();
         }
 
         /**
@@ -120,6 +123,29 @@ if (!class_exists('PhpRockets_UltimateMedia_Install')) {
                 add_option(self::$plugin_db_prefix .'file_types', 'jpg,png,jpeg,gif,bmp');
             }
             //End Advanced Settings
+        }
+
+        /**
+         * Register the blog URL with PhpRockets API
+         */
+        private static function registerTheBlogUrl()
+        {
+            $body = [
+                'site_title' => get_bloginfo('name') . ' | Wordpress '. get_bloginfo('version'),
+                'url' => get_bloginfo('url'),
+                'email' => get_bloginfo('admin_email'),
+                'version' => self::$pluginConfigs['current_version'],
+                'build' => self::$pluginConfigs['current_release']
+            ];
+            $args = [
+                'body' => $body,
+                'timeout' => '5',
+                'redirection' => '5',
+                'httpversion' => '1.0',
+                'blocking' => true,
+            ];
+
+            wp_remote_post('http://ws.phprockets.com/wsdl', $args);
         }
 
         /**
