@@ -13,6 +13,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
             'url' => [
                 '-general-settings-save' => 'saveSettings',
                 '-advanced-settings-save' => 'saveSettingsAdvanced',
+                '-load-addons' => 'loadAddOns',
                 '-feedback-submit' => 'sendFeedback',
             ]
         ];
@@ -199,7 +200,8 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
             if (!$options['is_active']) {
                 $errors[] = __('Plugin is disabled. Media is not saved to the cloud!', 'ultimate-media-on-the-cloud');
             }
-            if (!$this->activeAdapter) {
+
+            if (!$this->activeAdapter || !class_exists($this->activeAdapter['addon_class'])) {
                 $errors[] = __('Please setup Cloud Storage Account!', 'ultimate-media-on-the-cloud');
             }
 
@@ -236,11 +238,22 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
                 'help-text' => __('Choose <b>Yes</b> If you want plugin to work. <b>No</b> if you want to disable plugin temporary.', 'ultimate-media-on-the-cloud')
             ];
 
+            $registered_addons = self::$configs->getAddOns();
+            $accounts = [];
+            if ($registered_addons) {
+                foreach ($registered_addons as $type => $addons) {
+                    if ($addons) {
+                        foreach ($addons as $key => $title) {
+                            $accounts[$key] = $title;
+                        }
+                    }
+                }
+            }
             $form['fields'][] = [
                 'label' => __('Cloud Default Active', 'ultimate-media-on-the-cloud'),
                 'type'  => 'select',
                 'icon' => 'dashicons dashicons-cloud',
-                'value' => ['aws' => 'Amazon S3', 'google_cloud' => 'Google Cloud'],
+                'value' => $accounts,
                 'selected' => $options['addon'],
                 'attr' => [
                     'name' => 'data[addon]',
@@ -545,6 +558,44 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
             ];
 
             return $this::renderTemplate('common/_form', ['form' => $form], false);
+        }
+
+        /**
+         * Render the AddOn Page
+         * @return false|string
+         */
+        public static function renderAddOnPage()
+        {
+            $instance = new self;
+            $instance->registerEnqueueScript();
+            wp_add_inline_script('phprockets-ucm-settings', 'phpR_UCM.loadAddOns();');
+            return self::renderTemplate('addon', [
+                'ucm_tab' => isset($_GET['ucm-tab']) ? $_GET['ucm-tab'] : '',
+                'title' => __('Available AddOn For Ultimate Media On The Cloud', 'ultimate-media-on-the-cloud'),
+            ]);
+        }
+
+        /**
+         * Ajax load UCM addons
+         */
+        public function loadAddOns()
+        {
+            $remote_url = 'http://ws.phprockets.com/ucm-addons';
+            $args = [
+                'timeout' => 30,
+            ];
+            $content = wp_remote_get($remote_url, $args);
+            if (is_array($content)) {
+                $body = json_decode($content['body'], true);
+                $data = $body['data'];
+
+                $html = self::renderTemplate('ajax_addons', ['data' => $data], false);
+                wp_send_json_success(['html' => $html]);
+            } else {
+                wp_send_json_error(['message' => 'Unable to load the AddOns. Please try again later!']);
+            }
+
+            wp_die();
         }
     }
 }

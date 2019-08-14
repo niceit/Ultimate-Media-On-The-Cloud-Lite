@@ -100,6 +100,12 @@ if (!class_exists('PhpRockets_UltimateMedia_Config'))
                     'slug' => $this->plugin_url_prefix . '-support',
                     'handle' => [PhpRockets_UltimateMedia_Settings::class, 'renderFeedbackPage']
                 ],
+                'menu_level_'. ++$menu_key => [
+                    'page_title' => 'AddOns',
+                    'text' => '<b style="color: #fce61b;">AddOns</b>',
+                    'slug' => $this->plugin_url_prefix . '-addons',
+                    'handle' => [PhpRockets_UltimateMedia_Settings::class, 'renderAddOnPage']
+                ],
             ];
 
             if ($key) {
@@ -149,7 +155,11 @@ if (!class_exists('PhpRockets_UltimateMedia_Config'))
          */
         public function getAddOns()
         {
-            return $this::$registered_addons;
+            if (isset($GLOBALS['ucm']['addons'])) {
+                self::$registered_addons['external'] = $GLOBALS['ucm']['addons'];
+            }
+
+            return self::$registered_addons;
         }
     }
 }

@@ -66,6 +66,15 @@ jQuery(function () {
         });
 
     });
+
+    jQuery('.ucm-accounts-tab-links a').click(function(e) {
+        e.preventDefault();
+        jQuery('.ucm-accounts-tab-links a').removeClass('is-active');
+        jQuery(this).addClass('is-active');
+        var jPanelTarget = jQuery('#'+ jQuery(this).data('id'));
+        jQuery('.account-panel-body').removeClass('is-active');
+        jPanelTarget.addClass('is-active');
+    });
     /*End Main functionally*/
 
     /**

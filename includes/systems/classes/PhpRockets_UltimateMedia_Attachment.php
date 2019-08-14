@@ -78,7 +78,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Attachment')) {
             $option_file_types = get_option(self::$configs->plugin_db_prefix .'file_types');
             $option_file_types = $option_file_types ? explode(',', $option_file_types) : '';
 
-            if ($this->activeAdapter) {
+            if ($this->activeAdapter && class_exists($this->activeAdapter['addon_class'])) {
                 /**
                  * Check if post type filter is enabled
                  * Ignore if requested post type is not in the filters
@@ -108,7 +108,8 @@ if (!class_exists('PhpRockets_UltimateMedia_Attachment')) {
                 $cloud_storage_data = [
                     'account_id' => $this->activeAdapter['id'],
                     'path' => $cloud_account_config['cloud_path'],
-                    'bucket' => $cloud_account_config['bucket']
+                    'bucket' => $cloud_account_config['bucket'],
+                    'region' => $cloud_account_config['region']
                 ];
                 update_post_meta($post_id, '_ucm_storage_adapter', $this->activeAdapter['storage_adapter']);
                 update_post_meta($post_id, '_ucm_storage_metadata', serialize($cloud_storage_data));

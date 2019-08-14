@@ -15,7 +15,7 @@ if (!class_exists('PhpRockets_UltimateMedia')) {
         {
             if ($this->isPassCheckRequirement(false) && $this->isInitialProperly(false) && !$this->isConflicting(false)){
                 self::$configs = new PhpRockets_UltimateMedia_Config();
-                self::$page = isset($_GET['page']) ? $_GET['page'] : '';
+                self::$page = self::getQuery('page');
                 $this->activeAdapter = $this::getCurrentActiveAdapter();
             }
         }
@@ -248,11 +248,13 @@ if (!class_exists('PhpRockets_UltimateMedia')) {
          */
         public function inActivePluginNotice()
         {
-            $menu_main = $this::$configs->getMenu('menu_main');
-            _e('<div class="notice notice-error error">
-                 <h4>Ultimate Media On The Cloud Notice</h4>
-                 <p>'. __('Ultimate Cloud Media is inactive. Media is not saved to the Cloud! Check ', 'ultimate-media-on-the-cloud') .'<a href="'. admin_url('admin.php?page='. $menu_main['slug']) .'">'. __('General Settings', 'ultimate-media-on-the-cloud') .'</a></p>
-             </div>', 'ultimate-media-on-the-cloud');
+            if (!self::isUcmSection()) {
+                $menu_main = $this::$configs->getMenu('menu_main');
+                _e('<div class="notice notice-error error">
+                     <h4>Ultimate Media On The Cloud Notice</h4>
+                     <p>'. __('Ultimate Cloud Media is inactive. Media is not saved to the Cloud! Check ', 'ultimate-media-on-the-cloud') .'<a href="'. admin_url('admin.php?page='. $menu_main['slug']) .'">'. __('General Settings', 'ultimate-media-on-the-cloud') .'</a></p>
+                 </div>', 'ultimate-media-on-the-cloud');
+            }
         }
 
         /**
@@ -262,11 +264,13 @@ if (!class_exists('PhpRockets_UltimateMedia')) {
          */
         public function unassignedCloudAdapter()
         {
-            $menu_main = $this::$configs->getMenu('menu_main');
-            _e('<div class="notice notice-success updated">
-                 <h4>Ultimate Media On The Cloud Notice</h4>
-                 <p>'. __('Please update Settings for Cloud Storage Account! Check ', 'ultimate-media-on-the-cloud') .'<a href="'. admin_url('admin.php?page='. $menu_main['slug']) .'">'. __('General Settings', 'ultimate-media-on-the-cloud') .'</a></p>
-             </div>', 'ultimate-media-on-the-cloud');
+            if (!self::isUcmSection()) {
+                $menu_main = $this::$configs->getMenu('menu_main');
+                _e('<div class="notice notice-success updated">
+                     <h4>Ultimate Media On The Cloud Notice</h4>
+                     <p>'. __('Please update Settings for Cloud Storage Account! Check ', 'ultimate-media-on-the-cloud') .'<a href="'. admin_url('admin.php?page='. $menu_main['slug']) .'">'. __('General Settings', 'ultimate-media-on-the-cloud') .'</a></p>
+                 </div>', 'ultimate-media-on-the-cloud');
+            }
         }
 
         /**

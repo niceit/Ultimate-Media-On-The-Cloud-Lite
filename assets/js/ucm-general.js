@@ -88,6 +88,23 @@ var phpR_UCM = {
                 }
             });
         }
+    },
+    loadAddOns: function() {
+        jQuery.ajax({
+            url: phprockets_general.loadAddOns,
+            type: 'GET',
+            dataType: 'json',
+            timeout: 360000,
+            success: function (response) {
+                if (response.success) {
+                    jQuery('#ucm-addons-content').html(response.data.html);
+                } else {
+                    jQuery('#ucm-addons-content').html(response.data.message);
+                }
+            }, error: function (xhr, status, errorThrown) {
+                jQuery('#ucm-addons-content').html(errorThrown);
+            }
+        });
     }
 };
 jQuery(function() {

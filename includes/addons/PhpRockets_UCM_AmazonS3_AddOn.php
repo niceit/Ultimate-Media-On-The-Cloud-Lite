@@ -32,7 +32,7 @@ if (!class_exists('PhpRockets_UCM_AmazonS3_AddOn')) {
          */
         public function register()
         {
-            apply_filters('ucm_register_addons_vendor', 'aws-sdk-v3' . DIRECTORY_SEPARATOR . 'aws-autoloader.php');
+            apply_filters('ucm_register_addons_vendor', 'aws-sdk-v3' . DIRECTORY_SEPARATOR . 'aws-autoloader.php', 'builtin');
             add_filter('ucm_aws_upload_media', [$this, 'doPushAttachment'], $this::$configs->default_order , 1);
             if (get_option(self::$configs->plugin_db_prefix .'advanced_delete_cloud_file')) {
                 add_filter('ucm_aws_cloud_remove_file', [$this, 'doRemoveAttachmentMedia'], $this::$configs->default_order, 1);
@@ -104,7 +104,7 @@ if (!class_exists('PhpRockets_UCM_AmazonS3_AddOn')) {
 
             $form = [
                 'div' => [
-                    'class' => 'panel-body',
+                    'class' => 'account-panel-body is-active',
                     'id' => 'phprockets-ucm-amazons3-addon'
                 ],
                 'attr' => [
@@ -267,6 +267,7 @@ if (!class_exists('PhpRockets_UCM_AmazonS3_AddOn')) {
                     $create_account = PhpRockets_Model_Accounts::create([
                         'storage_adapter' => 'aws',
                         'name' => 'Default Aws Account',
+                        'addon_class' => 'PhpRockets_UCM_AmazonS3_AddOn',
                         'is_default' => 1,
                         'value' => serialize($data),
                         'created_at' => current_time('mysql', 1),

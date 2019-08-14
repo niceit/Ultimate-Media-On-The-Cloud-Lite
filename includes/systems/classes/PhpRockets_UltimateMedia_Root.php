@@ -97,6 +97,32 @@ if (!class_exists('PhpRockets_UltimateMedia_Root')) {
         }
 
         /**
+         * Get GET method query data
+         *
+         * @param string $key
+         * @return mixed|array|null
+         */
+        public static function getQuery($key)
+        {
+            if (isset($_GET[$key])) {
+                if (is_string($_GET[$key])) {
+                    return sanitize_text_field($_GET[$key]);
+                }
+
+                if (is_array($_GET[$key])) {
+                    $data = $_GET[$key];
+                    foreach ($data as $idx => $val) {
+                        $data[$idx] = sanitize_text_field($val);
+                    }
+
+                    return $data;
+                }
+            }
+
+            return null;
+        }
+
+        /**
          * Get Post data
          *
          * @param string $key

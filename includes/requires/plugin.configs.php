@@ -1,6 +1,6 @@
 <?php
 return [
-    'current_version' => '1.22.05',
+    'current_version' => '1.50.1',
     'current_release' => 'Lite',
     'online_document_url' => 'http://ucm.phprockets.com/documentations/index.html',
     'plugin_url' => 'https://wordpress.org/extend/plugins/ultimate-media-on-the-cloud-lite/',
@@ -13,9 +13,15 @@ return [
     'aws_guide_list_regions' => 'https://docs.aws.amazon.com/general/latest/gr/rande.html',
     'aws_guide_storage_class' => 'https://aws.amazon.com/s3/storage-classes/',
     'gcloud_guide_console' => 'https://console.cloud.google.com',
+    'digital_ocean_console' => 'https://cloud.digitalocean.com/spaces',
 
     //Register Builtin AddOns
-    'registered_addons' => ['AmazonS3', 'GoogleCloudStorage'],
+    'registered_addons' => [
+        'builtin' => [
+            'aws' => 'AmazonS3',
+            'google_cloud' => 'GoogleCloudStorage'
+        ]
+    ],
 
     //URL prefix for all plugin sub pages
     'plugin_url_prefix' => 'phpR-ucm',

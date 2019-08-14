@@ -801,7 +801,9 @@ a.text-dark:focus {
     width: 450px;
     z-index: 10000;
 }
+.ucm-settings-body .account-panel-body,
 .ucm-settings-body .panel-body { display: none; }
+.ucm-settings-body .account-panel-body.is-active,
 .ucm-settings-body .panel-body.is-active { display: block; }
 .dashicons.icon-button {
     font-size: 14px;
@@ -810,7 +812,7 @@ a.text-dark:focus {
 a.ucm-settings-nav {
     text-decoration: none;
 }
-a.ucm-settings-nav:focus {
+a.ucm-settings-nav:focus, .ucm-accounts-tab-links a {
     box-shadow: none !important;
 }
 img.ucm-banner {
@@ -830,4 +832,41 @@ img.ucm-banner {
      display: inline;
      width: 100%;
      float: none;
+}
+.ucm-accounts-tab-links {
+    padding-left: 5px;
+    margin-bottom: 20px;
+}
+.ucm-accounts-tab-links a {
+    border-left: 1px solid;
+    padding-left: 5px
+}
+.ucm-accounts-tab-links a:first-child {
+    border-left: none;
+}
+.ucm-accounts-tab-links a:not(.is-active) {
+    color: #000;
+    text-decoration: none;
+}
+.ucm-addon-col {
+    width: 250px;
+    border: 1px solid #ccc;
+    padding: 2px;
+}
+.ucm-addon-col .ucm-addon-img {
+    height: 138px;
+}
+.ucm-addon-col h3 {
+    text-align: center;
+    font-size: 14px;
+    color: #55B8FB;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.ucm-addon-col .ucm-addon-desc {
+    margin-bottom: 5px;
+    padding: 10px;
+}
+.ucm-addon-col .ucm-addon-actions {
+    text-align: center;
 }

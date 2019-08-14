@@ -1,3 +1,13 @@
+<h3>Version - 1.50.1</h3>
+<ul class="pl20">
+    <li style="list-style: circle;"><?php _e('Support External Add-On (Check <a href="https://www.phprockets.com/ucm-addons" target="_blank">https://www.phprockets.com/ucm-addons</a> for available addons).', 'ultimate-media-on-the-cloud') ?></li>
+    <li style="list-style: circle;"><?php _e('Digital Ocean AddOn supported.', 'ultimate-media-on-the-cloud') ?></li>
+    <li style="list-style: circle;"><?php _e('UI Improvements.', 'ultimate-media-on-the-cloud') ?></li>
+    <li style="list-style: circle;"><?php _e('Bug fixes and enhancements.', 'ultimate-media-on-the-cloud') ?></li>
+</ul>
+<br>
+<h1><?php _e('Change Logs', 'ultimate-media-on-the-cloud') ?></h1>
+<h3>Version - 1.22.05</h3>
 <ul class="pl20">
     <li style="list-style: circle;"><?php _e('Migration between Host and Clouds, Cloud and Cloud.', 'ultimate-media-on-the-cloud') ?> <a href="<?php echo $ucm::$configs->getUcmConfig('online_document_url') ?>#migration" target="_blank"><small><i> <?php _e('What is this?', 'ultimate-media-on-the-cloud') ?></i></small></a></li>
     <li style="list-style: circle;"><?php _e('Unlimited Cloud Accounts.', 'ultimate-media-on-the-cloud') ?></li>

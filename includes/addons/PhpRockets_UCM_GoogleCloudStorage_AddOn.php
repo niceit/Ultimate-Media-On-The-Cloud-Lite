@@ -34,7 +34,7 @@ if (!class_exists('PhpRockets_UCM_GoogleCloudStorage_AddOn')) {
          */
         public function register()
         {
-            apply_filters('ucm_register_addons_vendor', 'google-core/vendor' . DIRECTORY_SEPARATOR . 'autoload.php');
+            apply_filters('ucm_register_addons_vendor', 'google-core/vendor' . DIRECTORY_SEPARATOR . 'autoload.php', 'builtin');
             add_filter('ucm_google_cloud_upload_media', [$this, 'doPushAttachment'], $this::$configs->default_order , 1);
             if (get_option(self::$configs->plugin_db_prefix .'advanced_delete_cloud_file')) {
                 add_filter('ucm_google_cloud_cloud_remove_file', [$this, 'doRemoveAttachmentMedia'], $this::$configs->default_order, 1);
@@ -92,7 +92,7 @@ if (!class_exists('PhpRockets_UCM_GoogleCloudStorage_AddOn')) {
 
             $form = [
                 'div' => [
-                    'class' => 'panel-body',
+                    'class' => 'account-panel-body',
                     'id' => 'phprockets-ucm-googlecloudstorage-addon'
                 ],
                 'attr' => [
@@ -332,6 +332,7 @@ if (!class_exists('PhpRockets_UCM_GoogleCloudStorage_AddOn')) {
                     $create_account = PhpRockets_Model_Accounts::create([
                         'storage_adapter' => 'google_cloud',
                         'name' => 'Default Google Cloud Account',
+                        'addon_class' => 'PhpRockets_UCM_GoogleCloudStorage_AddOn',
                         'is_default' => 1,
                         'value' => serialize($data),
                         'created_at' => current_time('mysql', 1),

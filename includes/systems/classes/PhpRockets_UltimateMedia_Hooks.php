@@ -18,23 +18,25 @@ if (!class_exists('PhpRockets_UltimateMedia_Hooks'))
             add_action('admin_menu', [$this, 'initAdminMenu']);
             add_filter('plugin_action_links_'.plugin_basename(ULTIMATE_MEDIA_PLG_FILE), [$this, 'addPluginLinks'], $this::$configs->default_order, 1);
             add_filter('wp_get_attachment_url', [PhpRockets_UltimateMedia_Attachment::class, 'getAttachmentUrl'], $this::$configs->default_order, 2);
-            add_filter('ucm_register_addons', 'ucm_register_addons', $this::$configs->default_order, 1);
-            add_filter('ucm_register_addons_vendor', 'ucm_register_addons_vendor', $this::$configs->default_order, 1);
+            add_filter('ucm_register_addons', 'ucm_register_addons', $this::$configs->default_order, 2);
+            add_filter('ucm_register_addons_vendor', 'ucm_register_addons_vendor', $this::$configs->default_order, 2);
 
             if ($this::isUcmSection()) {
                 add_action( 'admin_enqueue_scripts', [$this, 'loadBackEndAssets']);
             }
             load_plugin_textdomain('ultimate-media-on-the-cloud', false, ULTIMATE_MEDIA_PLG_DIR .'/includes/systems/translations/');
 
-            $addons = $this::$configs->getAddOns();
-            if ($addons) {
+            $registered_addons = $this::$configs->getAddOns();
+            if ($registered_addons) {
                 $addon_classes = [];
-                foreach ($addons as $addon) {
-                    apply_filters('ucm_register_addons', $addon);
-                    $addon_class = "PhpRockets_UCM_{$addon}_AddOn";
-                    $addon_classes[$addon_class] = new $addon_class;
+                foreach ($registered_addons as $type => $addons) {
+                    foreach ($addons as $addon) {
+                        apply_filters('ucm_register_addons', $addon, $type);
+                        $addon_class = "PhpRockets_UCM_{$addon}_AddOn";
+                        $addon_classes[$addon_class] = new $addon_class;
+                    }
+                    self::$addons = $addon_classes;
                 }
-                self::$addons = $addon_classes;
             }
 
             $ucmAttachment = new PhpRockets_UltimateMedia_Attachment();

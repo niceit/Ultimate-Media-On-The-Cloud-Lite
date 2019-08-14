@@ -10,20 +10,24 @@ if (!function_exists('ucm_register_addons'))
 {
     /**
      * @param string $namespace name of AddOn is being registered
+     * @param string $type builtin | external
      */
-    function ucm_register_addons($namespace)
+    function ucm_register_addons($namespace, $type)
     {
-        if (file_exists(ULTIMATE_MEDIA_PLG_DIR ."/includes/addons/PhpRockets_UCM_{$namespace}_AddOn.php")) {
+        $addon_dir = $type === 'builtin' ? ULTIMATE_MEDIA_PLG_DIR . '/includes/addons/' : dirname(ULTIMATE_MEDIA_PLG_DIR) . '/ucm-addons-'. strtolower($namespace) .'/classes/';
+        if (file_exists($addon_dir ."PhpRockets_UCM_{$namespace}_AddOn.php")) {
+            require_once $addon_dir ."/PhpRockets_UCM_{$namespace}_AddOn.php";
             $addon_class = "PhpRockets_UCM_{$namespace}_AddOn";
-            require_once ULTIMATE_MEDIA_PLG_DIR ."/includes/addons/PhpRockets_UCM_{$namespace}_AddOn.php";
             /** @var PhpRockets_UCM_Addons $class */
             $class = new $addon_class;
             $class->register();
 
             if (method_exists($addon_class, 'registerAjaxUrlHook')) {
                 $actions = $class->registerAjaxUrlHook();
-                foreach ($actions as $action => $callback) {
-                    add_action($action, [$addon_class, $callback]);
+                if ($actions) {
+                    foreach ($actions as $action => $callback) {
+                        add_action($action, [$addon_class, $callback]);
+                    }
                 }
             }
         }
@@ -34,11 +38,13 @@ if (!function_exists('ucm_register_addons_vendor'))
 {
     /**
      * @param string $path name of addon vendor is being registered
+     * @param string $type builtin | external
      */
-    function ucm_register_addons_vendor($path)
+    function ucm_register_addons_vendor($path, $type)
     {
-        if (file_exists(ULTIMATE_MEDIA_PLG_DIR ."/includes/addons/vendor/{$path}")) {
-            require_once ULTIMATE_MEDIA_PLG_DIR ."/includes/addons/vendor/{$path}";
+        $addon_dir = $type === 'builtin' ? ULTIMATE_MEDIA_PLG_DIR . '/includes/addons/vendor' : dirname(ULTIMATE_MEDIA_PLG_DIR);
+        if (file_exists($addon_dir ."/{$path}")) {
+            require_once $addon_dir ."/{$path}";
         }
     }
 }

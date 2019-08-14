@@ -6,3 +6,9 @@
 * Keep/UnKeep local media
 * HTTP/HTTPS cloud source protocols
 * Delete Cloud media when remove attachment.
+
+= 1.50.1 ==
+* Support External Add-On (Check https://www.phprockets.com/ucm-addons for available addons)
+* Digital Ocean AddOn supported
+* UI Improvements
+* Bug fixes and enhancements

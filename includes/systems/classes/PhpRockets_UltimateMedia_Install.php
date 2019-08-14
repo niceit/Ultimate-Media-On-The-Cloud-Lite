@@ -35,6 +35,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Install')) {
                 } );
             }
             self::initialOptions();
+            self::checkAccountForClasses();
             self::registerTheBlogUrl();
         }
 
@@ -208,6 +209,31 @@ if (!class_exists('PhpRockets_UltimateMedia_Install')) {
             global $wpdb;
             $sql = 'DROP TABLE `'. $wpdb->prefix . self::$plugin_db_prefix .'accounts`';
             $wpdb->query($sql);
+        }
+
+        /**
+         * Fix missing Classes in UCM Table
+         */
+        public static function checkAccountForClasses()
+        {
+            global $wpdb;
+            /* Check and correct the account table addon classes */
+            $query = 'SELECT * FROM `'. $wpdb->prefix . self::$plugin_db_prefix . 'accounts`';
+            $accounts = $wpdb->get_results($query, ARRAY_A);
+            if ($accounts) {
+                foreach ($accounts as $account) {
+                    if (!$account['addon_class']) {
+                        switch ($account['storage_adapter']) {
+                            case 'aws':
+                                $wpdb->update($wpdb->prefix . self::$plugin_db_prefix . 'accounts', ['addon_class' => 'PhpRockets_UCM_AmazonS3_AddOn'], ['id' => $account['id']]);
+                                break;
+                            case 'google_cloud':
+                                $wpdb->update($wpdb->prefix . self::$plugin_db_prefix . 'accounts', ['addon_class' => 'PhpRockets_UCM_GoogleCloudStorage_AddOn'], ['id' => $account['id']]);
+                                break;
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -65,6 +65,11 @@ will update in next release. Keep plugin up to date in your host for the best st
 4. Upload media sample.
 5. Advanced Settings.
 
+== Upgrade Notice ==
+External AddOn supported (Digital Ocean Addon)
+UI Improvements
+Bugs fixes
+
 == Changelog ==
 
 = 1.22.05 =
@@ -75,3 +80,9 @@ will update in next release. Keep plugin up to date in your host for the best st
 * Keep/UnKeep local media
 * HTTP/HTTPS cloud source protocols
 * Delete Cloud media when remove attachment.
+
+
+= 1.50.1 ==
+* Support External Add-On (Check https://www.phprockets.com/ucm-addons for available addons)
+* UI Improvements
+* Bug fixes and enhancements
