@@ -763,7 +763,7 @@ a.has-text-white:hover, a.has-text-white:focus {
 }
 
 .has-background-white {
-  background-color: white !important;
+  background-color: #f9f9f9 !important;
 }
 
 .has-text-black {

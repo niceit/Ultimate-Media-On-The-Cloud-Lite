@@ -108,7 +108,7 @@
                                     <input<?php if (isset($field['attr']) && !empty($field['attr'])) { foreach ($field['attr'] as $item => $value) { echo ' '. $item .'="'. $value .'"'; } } ?>>
                                     <span class="file-cta">
                                       <span class="file-icon">
-                                        <i class="dashicons dashicons-upload"></i>
+                                        <i class="fa fa-upload"></i>
                                       </span>
                                       <span class="file-label">
                                           <?php if (isset($field['value']) && $field['value']) : ?>

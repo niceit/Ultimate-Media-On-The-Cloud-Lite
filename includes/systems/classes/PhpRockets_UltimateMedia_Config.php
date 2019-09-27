@@ -102,7 +102,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Config'))
                 ],
                 'menu_level_'. ++$menu_key => [
                     'page_title' => 'AddOns',
-                    'text' => '<b style="color: #fce61b;">AddOns</b>',
+                    'text' => '<b style="color: #fce61b;"><i class="dashicons dashicons-admin-plugins"> </i> AddOns</b>',
                     'slug' => $this->plugin_url_prefix . '-addons',
                     'handle' => [PhpRockets_UltimateMedia_Settings::class, 'renderAddOnPage']
                 ],

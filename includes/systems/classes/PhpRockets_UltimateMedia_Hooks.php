@@ -76,6 +76,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Hooks'))
             if (self::isUcmSection()) {
                 wp_enqueue_style('bulma', plugin_dir_url(ULTIMATE_MEDIA_PLG_FILE) .'assets/css/bulma'. self::$configs->enqueue_assets_suffix .'.css');
                 wp_enqueue_style('phprockets-ucm', plugin_dir_url(ULTIMATE_MEDIA_PLG_FILE) .'assets/css/phprockets-ucm'. self::$configs->enqueue_assets_suffix .'.css');
+                wp_enqueue_script('fontawesome-ucm', plugin_dir_url(ULTIMATE_MEDIA_PLG_FILE) .'assets/js/fa-all.js');
             }
         }
 

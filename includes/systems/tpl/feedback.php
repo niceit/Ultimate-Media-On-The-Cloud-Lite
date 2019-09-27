@@ -3,7 +3,7 @@
         <?php include ULTIMATE_MEDIA_PLG_DIR .'/includes/systems/tpl/common/header.php' ?>
         <div class="ucm-settings-body box column is-full has-background-white relative">
             <?php echo $loading_box ?>
-            <h2><i class="dashicons dashicons-admin-comments"> </i> <?php _e('Support & Feedback', 'ultimate-media-on-the-cloud') ?></h2>
+            <h2><i class="fa fa-comments"> </i> <?php _e('Support & Feedback', 'ultimate-media-on-the-cloud') ?></h2>
             <hr>
             <aside class="message is-warning mt10">
                 <div class="message-body">

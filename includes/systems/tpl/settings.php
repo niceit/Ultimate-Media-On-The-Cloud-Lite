@@ -5,10 +5,30 @@
             <?php echo $loading_box ?>
             <div class="tabs" style="margin-bottom: 5px;">
                 <ul style="border-bottom: none;">
-                    <li <?php if (!$ucm_tab) : ?>class="is-active"<?php endif ?>><a class="ucm-settings-nav" href="javascript:;" data-target="ucm-general"><?php echo $title ?></a></li>
-                    <li <?php if ($ucm_tab === 'storage-accounts') : ?>class="is-active"<?php endif ?>><a class="ucm-settings-nav" href="javascript:;" data-target="ucm-storage-accounts"><?php _e('Storage Accounts', 'ultimate-media-on-the-cloud') ?></a></li>
-                    <li <?php if ($ucm_tab === 'advanced') : ?>class="is-active"<?php endif ?>><a class="ucm-settings-nav" href="javascript:;" data-target="ucm-advanced"><?php _e('Advanced', 'ultimate-media-on-the-cloud') ?></a></li>
-                    <li <?php if ($ucm_tab === 'help') : ?>class="is-active"<?php endif ?>><a class="ucm-settings-nav" href="javascript:;" data-target="ucm-help"><?php _e('Help', 'ultimate-media-on-the-cloud') ?></a></li>
+                    <li <?php if (!$ucm_tab) : ?>class="is-active"<?php endif ?>>
+                        <a class="ucm-settings-nav" href="javascript:;" data-target="ucm-general">
+                            <span class="icon is-small"><i class="fas fa-cogs" aria-hidden="true"></i></span>
+                            <span><?php echo $title ?></span>
+                        </a>
+                    </li>
+                    <li <?php if ($ucm_tab === 'storage-accounts') : ?>class="is-active"<?php endif ?>>
+                        <a class="ucm-settings-nav" href="javascript:;" data-target="ucm-storage-accounts">
+                            <span class="icon is-small"><i class="fas fa-database" aria-hidden="true"></i></span>
+                            <span><?php _e('Storage Accounts', 'ultimate-media-on-the-cloud') ?></span>
+                        </a>
+                    </li>
+                    <li <?php if ($ucm_tab === 'advanced') : ?>class="is-active"<?php endif ?>>
+                        <a class="ucm-settings-nav" href="javascript:;" data-target="ucm-advanced">
+                            <span class="icon is-small"><i class="fas fa-cog" aria-hidden="true"></i></span>
+                            <span><?php _e('Advanced', 'ultimate-media-on-the-cloud') ?></span>
+                        </a>
+                    </li>
+                    <li <?php if ($ucm_tab === 'help') : ?>class="is-active"<?php endif ?>>
+                        <a class="ucm-settings-nav" href="javascript:;" data-target="ucm-help">
+                            <span class="icon is-small"><i class="fas fa-question-circle" aria-hidden="true"></i></span>
+                            <span><?php _e('Help', 'ultimate-media-on-the-cloud') ?></span>
+                        </a>
+                    </li>
                 </ul>
             </div>
             <!-- TAB SETTINGS GENERAL -->

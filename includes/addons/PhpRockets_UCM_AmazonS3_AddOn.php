@@ -124,7 +124,7 @@ if (!class_exists('PhpRockets_UCM_AmazonS3_AddOn')) {
             $form['fields'][] = [
                 'label' => __('App Key', 'ultimate-media-on-the-cloud'),
                 'type'  => 'text',
-                'icon' => 'dashicons dashicons-post-status',
+                'icon' => 'fa fa-key',
                 'attr' => [
                     'name' => 'data[app_key]',
                     'value' => $amz_data ? $amz_data['app_key'] : '',
@@ -137,7 +137,7 @@ if (!class_exists('PhpRockets_UCM_AmazonS3_AddOn')) {
             $form['fields'][] = [
                 'label' => 'App Secret',
                 'type' => 'text',
-                'icon' => 'dashicons dashicons-lock',
+                'icon' => 'fa fa-user-secret',
                 'attr' => [
                     'name' => 'data[app_secret]',
                     'value' => $amz_data ? $amz_data['app_secret'] : '',
@@ -155,7 +155,7 @@ if (!class_exists('PhpRockets_UCM_AmazonS3_AddOn')) {
                 'type' => 'anchor',
                 'attr' => [
                     'href' => 'javascript:;',
-                    'icon' => 'dashicons dashicons-plugins-checked icon-button',
+                    'icon' => 'fa fa-check icon-button',
                     'class' => 'button is-link',
                     'id' => 'btn-amz-connect'
                 ]
@@ -187,7 +187,7 @@ if (!class_exists('PhpRockets_UCM_AmazonS3_AddOn')) {
             $form['fields'][] = [
                 'label' => __('Default Bucket', 'ultimate-media-on-the-cloud'),
                 'type' => 'select',
-                'icon' => 'dashicons dashicons-lock',
+                'icon' => 'fa fa-folder-open',
                 'value' => array_merge(['' => '-Choose Bucket-'], $bucket_arr),
                 'selected' => $amz_data ? $amz_data['bucket'] : '',
                 'attr' => [
@@ -200,7 +200,7 @@ if (!class_exists('PhpRockets_UCM_AmazonS3_AddOn')) {
             $form['fields'][] = [
                 'label' => __('Cloud Path', 'ultimate-media-on-the-cloud'),
                 'type' => 'text',
-                'icon' => 'dashicons dashicons-archive',
+                'icon' => 'fa fa-folder-open',
                 'attr' => [
                     'name' => 'data[cloud_path]',
                     'value' => $amz_data ? $amz_data['cloud_path'] : '/',
@@ -216,7 +216,7 @@ if (!class_exists('PhpRockets_UCM_AmazonS3_AddOn')) {
                 'type' => 'select',
                 'value' => array_merge(['' => '-Choose Region-'], $this->getAvailableRegions()),
                 'selected' => $amz_data ? $amz_data['region'] : '',
-                'icon' => 'dashicons dashicons-flag',
+                'icon' => 'fa fa-globe',
                 'attr' => [
                     'name' => 'data[region]',
                     'id' => 'app-region',
@@ -227,7 +227,7 @@ if (!class_exists('PhpRockets_UCM_AmazonS3_AddOn')) {
             $form['fields'][] = [
                 'label' => __('Storage Class', 'ultimate-media-on-the-cloud'),
                 'type' => 'select',
-                'icon' => 'dashicons dashicons-groups',
+                'icon' => 'fa fa-user-secret',
                 'value' => array_merge(['' => __('-Choose-', 'ultimate-media-on-the-cloud')], $this->getStorageClasses()),
                 'selected' => $amz_data ? $amz_data['storage_class'] : 'STANDARD',
                 'attr' => [

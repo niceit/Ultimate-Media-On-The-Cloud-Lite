@@ -228,7 +228,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
             $form['fields'][] = [
                 'label' => __('Active Cloud Media?', 'ultimate-media-on-the-cloud'),
                 'type'  => 'select',
-                'icon' => 'dashicons dashicons-yes',
+                'icon' => 'fa fa-check',
                 'value' => [1 => 'Yes', 0 => 'No'],
                 'selected' => (int)$options['is_active'],
                 'attr' => [
@@ -252,7 +252,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
             $form['fields'][] = [
                 'label' => __('Cloud Default Active', 'ultimate-media-on-the-cloud'),
                 'type'  => 'select',
-                'icon' => 'dashicons dashicons-cloud',
+                'icon' => 'fa fa-cloud',
                 'value' => $accounts,
                 'selected' => $options['addon'],
                 'attr' => [
@@ -265,7 +265,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
             $form['fields'][] = [
                 'label' => __('Keep a copy of media?', 'ultimate-media-on-the-cloud'),
                 'type'  => 'select',
-                'icon' => 'dashicons dashicons-format-gallery',
+                'icon' => 'fa fa-copy',
                 'value' => [1 => 'Yes', 0 => 'No'],
                 'selected' => (int)$options['keep_copy'],
                 'attr' => [
@@ -278,7 +278,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
             $form['fields'][] = [
                 'label' => __('Scheme Protocol', 'ultimate-media-on-the-cloud'),
                 'type'  => 'select',
-                'icon' => 'dashicons dashicons-format-gallery',
+                'icon' => 'fa fa-lock',
                 'value' => ['http' => 'HTTP', 'https' => 'HTTPS'],
                 'selected' => $options['scheme'],
                 'attr' => [
@@ -328,7 +328,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
             $form_advanced['fields'][] = [
                 'label' => __('Delete Cloud File?', 'ultimate-media-on-the-cloud'),
                 'type'  => 'select',
-                'icon' => 'dashicons dashicons-format-gallery',
+                'icon' => 'fa fa-trash',
                 'value' => [1 => 'Yes', 0 => 'No'],
                 'selected' => (int)$options['delete_cloud_file'],
                 'attr' => [
@@ -342,7 +342,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
             $form_advanced['fields'][] = [
                 'label' => 'Post types',
                 'type' => 'tags',
-                'icon' => 'dashicons dashicons-tag',
+                'icon' => 'fa fa-tags',
                 'placeholder' => 'Add a post type',
                 'attr' => [
                     'name' => 'data[post_types]',
@@ -357,7 +357,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
             $form_advanced['fields'][] = [
                 'label' => 'File types',
                 'type' => 'tags',
-                'icon' => 'dashicons dashicons-tag',
+                'icon' => 'fa fa-tag',
                 'placeholder' => 'Add a file type',
                 'attr' => [
                     'name' => 'data[file_types]',
@@ -494,7 +494,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
             $form['fields'][] = [
                 'label' => 'Your name',
                 'type' => 'text',
-                'icon' => 'dashicons dashicons-tag',
+                'icon' => 'fa fa-tag',
                 'attr' => [
                     'name' => 'data[name]',
                     'placeholder' => __('Type your fullname', 'ultimate-media-on-the-cloud'),
@@ -506,7 +506,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
             $form['fields'][] = [
                 'label' => 'Your email',
                 'type' => 'text',
-                'icon' => 'dashicons dashicons-email-alt',
+                'icon' => 'fa fa-envelope',
                 'attr' => [
                     'name' => 'data[email]',
                     'placeholder' => __('Type your email', 'ultimate-media-on-the-cloud'),
@@ -519,7 +519,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
             $form['fields'][] = [
                 'label' => 'Subject',
                 'type' => 'text',
-                'icon' => 'dashicons dashicons-megaphone',
+                'icon' => 'fa fa-tag',
                 'attr' => [
                     'name' => 'data[subject]',
                     'placeholder' => __('Your question or need support?', 'ultimate-media-on-the-cloud'),
@@ -531,7 +531,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
             $form['fields'][] = [
                 'label' => __('Type', 'ultimate-media-on-the-cloud'),
                 'type' => 'select',
-                'icon' => 'dashicons dashicons-tag',
+                'icon' => 'fa fa-tags',
                 'value' => [
                     'Leave Feedback' => 'Leave Feedback',
                     'Technical Issue' => 'Technical Issue',
@@ -547,7 +547,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
             $form['fields'][] = [
                 'label' => 'Body',
                 'type' => 'textarea',
-                'icon' => 'dashicons dashicons-tag',
+                'icon' => 'fa fa-comment',
                 'attr' => [
                     'style' => 'height: 150px;',
                     'name' => 'data[body]',

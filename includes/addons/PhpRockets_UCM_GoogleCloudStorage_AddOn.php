@@ -114,7 +114,7 @@ if (!class_exists('PhpRockets_UCM_GoogleCloudStorage_AddOn')) {
             $form['fields'][] = [
                 'label' => __('Project Id', 'ultimate-media-on-the-cloud'),
                 'type'  => 'text',
-                'icon' => 'dashicons dashicons-post-status',
+                'icon' => 'fa fa-key',
                 'attr' => [
                     'name' => 'data[project_id]',
                     'value' => $gg_data ? $gg_data['project_id'] : '',
@@ -127,7 +127,7 @@ if (!class_exists('PhpRockets_UCM_GoogleCloudStorage_AddOn')) {
             $form['fields'][] = [
                 'label' => __('Authentication Key File', 'ultimate-media-on-the-cloud'),
                 'type'  => 'file',
-                'icon' => 'dashicons dashicons-format-aside',
+                'icon' => 'fa fa-file',
                 'value' => $gg_data ? $gg_data['auth_file'] : '',
                 'attr' => [
                     'type' => 'file',
@@ -143,7 +143,7 @@ if (!class_exists('PhpRockets_UCM_GoogleCloudStorage_AddOn')) {
                 'type' => 'anchor',
                 'attr' => [
                     'href' => 'javascript:;',
-                    'icon' => 'dashicons dashicons-plugins-checked icon-button',
+                    'icon' => 'fa fa-check icon-button',
                     'class' => 'button is-link',
                     'id' => 'btn-gcloud-connect'
                 ]
@@ -192,7 +192,7 @@ if (!class_exists('PhpRockets_UCM_GoogleCloudStorage_AddOn')) {
             $form['fields'][] = [
                 'label' => __('Default Bucket', 'ultimate-media-on-the-cloud'),
                 'type' => 'select',
-                'icon' => 'dashicons dashicons-lock',
+                'icon' => 'fa fa-folder-open',
                 'value' => array_merge(['' => '-Choose Bucket-'], $buckets),
                 'selected' => $gg_data ? $gg_data['bucket'] : '',
                 'attr' => [
@@ -205,7 +205,7 @@ if (!class_exists('PhpRockets_UCM_GoogleCloudStorage_AddOn')) {
             $form['fields'][] = [
                 'label' => __('Cloud Path', 'ultimate-media-on-the-cloud'),
                 'type' => 'text',
-                'icon' => 'dashicons dashicons-archive',
+                'icon' => 'fa fa-folder-open',
                 'attr' => [
                     'name' => 'data[cloud_path]',
                     'value' => $gg_data ? $gg_data['cloud_path'] : '/',

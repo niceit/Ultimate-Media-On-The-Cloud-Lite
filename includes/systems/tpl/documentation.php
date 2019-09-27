@@ -1,7 +1,7 @@
 <div class="ucm-settings column is-three-fifths">
    <?php include ULTIMATE_MEDIA_PLG_DIR .'/includes/systems/tpl/common/header.php' ?>
     <div class="ucm-settings-body box column is-full has-background-white relative">
-        <h2><i class="dashicons dashicons-book"> </i> <?php _e('Documentation', 'ultimate-media-on-the-cloud') ?></h2>
+        <h2><i class="fa fa-book"> </i> <?php _e('Documentation', 'ultimate-media-on-the-cloud') ?></h2>
         <hr>
         <aside class="message is-warning">
             <div class="message-body">
