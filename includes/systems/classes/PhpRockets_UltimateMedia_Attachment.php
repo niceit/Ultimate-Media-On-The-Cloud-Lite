@@ -72,6 +72,9 @@ if (!class_exists('PhpRockets_UltimateMedia_Attachment')) {
          */
         public function updateAttachmentMeta($data, $post_id)
         {
+            if (!self::$hook_service) {
+                return $data;
+            }
             $option_post_types = get_option(self::$configs->plugin_db_prefix .'post_types');
             $option_post_types = $option_post_types ? explode(',', $option_post_types) : '';
 
@@ -82,7 +85,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Attachment')) {
                 /**
                  * Check if post type filter is enabled
                  * Ignore if requested post type is not in the filters
-                 **/
+                **/
                 if ($option_post_types && $this->getCurrentPagePostType() && !in_array($this->getCurrentPagePostType(), $option_post_types, false)) {
                     return $data;
                 }

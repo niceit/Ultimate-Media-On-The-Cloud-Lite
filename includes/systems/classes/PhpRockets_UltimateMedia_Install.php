@@ -9,6 +9,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Install')) {
     class PhpRockets_UltimateMedia_Install
     {
         private static $plugin_db_prefix = 'phpr_ucm_';
+        private static $default_config_dir = '/includes/addons/configs/';
         private static $pluginConfigs;
 
         /**
@@ -173,6 +174,8 @@ if (!class_exists('PhpRockets_UltimateMedia_Install')) {
         private static function createTables()
         {
             global $wpdb;
+
+            /* Create Cloud Storage Account Table */
             $sql = 'CREATE TABLE IF NOT EXISTS `'. $wpdb->prefix . self::$plugin_db_prefix . 'accounts` (
               `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
               `storage_adapter` varchar(128) NOT NULL,

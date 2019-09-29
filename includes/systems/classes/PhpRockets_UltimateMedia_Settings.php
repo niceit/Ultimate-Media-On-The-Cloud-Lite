@@ -29,7 +29,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
 
             $loading_box = self::renderTemplate('common/box-loading-on-save', ['plugin_url' => plugin_dir_url(ULTIMATE_MEDIA_PLG_FILE)], false);
             return self::renderTemplate('settings', [
-                'ucm_tab' => isset($_GET['ucm-tab']) ? $_GET['ucm-tab'] : '',
+                'ucm_tab' => self::getQuery('ucm-tab'),
                 'loading_box' => $loading_box,
                 'addons' => self::$addons,
                 'form' => $instance->buildForm(),
@@ -64,10 +64,10 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
                     wp_die();
                 }
 
-                update_option(self::$configs->plugin_db_prefix .'option_is_active', $data['is_active']);
-                update_option(self::$configs->plugin_db_prefix .'option_addon', $data['addon']);
-                update_option(self::$configs->plugin_db_prefix .'option_keep_copy', $data['keep_copy']);
-                update_option(self::$configs->plugin_db_prefix .'option_scheme', $data['scheme']);
+                self::ucmUpdateOption('option_is_active', $data['is_active']);
+                self::ucmUpdateOption('option_addon', $data['addon']);
+                self::ucmUpdateOption('option_keep_copy', $data['keep_copy']);
+                self::ucmUpdateOption('option_scheme', $data['scheme']);
                 wp_send_json_success(['message' => __('General settings updated.', 'ultimate-media-on-the-cloud')]);
 
             } else {
@@ -97,7 +97,9 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
                     wp_die();
                 }
 
-                update_option(self::$configs->plugin_db_prefix .'advanced_delete_cloud_file', $data['delete_cloud_file']);
+                /* Update Option Delete Cloud File */
+                self::ucmUpdateOption('advanced_delete_cloud_file', $data['delete_cloud_file']);
+
                 $allowed_post_types = 'post,page';
                 if (!$data['post_types']) {
                     $data['post_types'] = $allowed_post_types;
@@ -124,8 +126,8 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
                     }
                 }
 
-                update_option(self::$configs->plugin_db_prefix .'post_types', $data['post_types']);
-                update_option(self::$configs->plugin_db_prefix .'file_types', $data['file_types']);
+                self::ucmUpdateOption('post_types', $data['post_types']);
+                self::ucmUpdateOption('file_types', $data['file_types']);
                 wp_send_json_success(['message' => __('Advanced settings updated.')]);
 
             } else {
@@ -157,7 +159,6 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
          */
         private function registerEnqueueScript()
         {
-            wp_enqueue_script('phprockets-ucm-general', plugin_dir_url(ULTIMATE_MEDIA_PLG_FILE) .'assets/js/ucm-general'. self::$configs->enqueue_assets_suffix .'.js', ['jquery']);
             wp_enqueue_script('phprockets-ucm-settings', plugin_dir_url(ULTIMATE_MEDIA_PLG_FILE) .'assets/js/ucm-settings'. self::$configs->enqueue_assets_suffix .'.js', ['jquery']);
 
             $vars = [];
@@ -170,7 +171,6 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
                 '_error_submit' => __('Error while submitting form. Please try again!', 'ultimate-media-on-the-cloud'),
             ];
             wp_localize_script( 'phprockets-ucm-settings', 'phprockets_settings_l10n', $ucm_l10n);
-            wp_localize_script( 'phprockets-ucm-settings', 'phprockets_news', ['url' => admin_url('admin-ajax.php?action='. self::$configs->plugin_url_prefix . '-news')]);
 
             if (self::$addons) {
                 foreach (self::$addons as $addon) {

@@ -870,3 +870,41 @@ img.ucm-banner {
 .ucm-addon-col .ucm-addon-actions {
     text-align: center;
 }
+.columns.ucm-field-hidden {
+    display: none;
+}
+.tags-hints {
+    position: absolute;
+    z-index: 1000;
+    background: #FFF;
+    width: 100%;
+    border: 1px solid #e2e2e2;
+    top: 35px;
+    display: none;
+}
+.tags-hints ul {
+    padding: 0px;
+    margin: 0;
+}
+.tags-hints ul li {
+    font-size: 13px;
+    padding: 10px 15px;
+    margin: 0;
+}
+.tags-hints ul li:hover {
+    background-color: #e9f8ff;
+    cursor: pointer;
+}
+.ucm-fm-ui-preview {
+    display: none;
+}
+.ucm-fm-ui-preview.is-active {
+    display: block;
+}
+legend.ucm-frm-legend {
+    font-size: 19px;
+    font-weight: 500;
+}
+.elfinder.elfinder-ltr div.elfinder-bottomtray, #elfinder-pixo-container, .elfinder-dialog-active.elfinder-maximized {
+    z-index: 999999 !important;
+}

@@ -13,6 +13,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Config'))
         public $enqueue_assets_suffix;
 
         private $pluginConfigs;
+        private static $menu;
         /**
          * Directory where to save AddOn config file
          **/
@@ -46,6 +47,8 @@ if (!class_exists('PhpRockets_UltimateMedia_Config'))
             $this->plugin_url_prefix = $this->getUcmConfig('plugin_url_prefix');
             $this->plugin_db_prefix = $this->getUcmConfig('plugin_db_prefix');
             $this->plugin_icon_file = $this->getUcmConfig('plugin_icon_file');
+
+            add_filter('ucm_menu_hook', [$this, 'afterMenuHook'], $this->default_order, 1);
         }
 
         /**
@@ -69,7 +72,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Config'))
         {
             //Define text global over the plugin
             $menu_key = 1;
-            $menu = [
+            self::$menu = [
                 'menu_main' => [
                     'page_title' => 'Ultimate Media On The Cloud',
                     'text' => 'Ultimate Media On The Cloud',
@@ -77,7 +80,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Config'))
                     'handle' => [PhpRockets_UltimateMedia_Settings::class, 'renderSettingsPage']
                 ],
                 'menu_level_'. ++$menu_key => [
-                    'page_title' => 'Ultimate Cloud Media Settings',
+                    'page_title' => 'Ultimate Media On The Cloud Settings',
                     'text' => 'General Settings',
                     'slug' => $this->plugin_url_prefix,
                     'handle' => [PhpRockets_UltimateMedia_Settings::class, 'renderSettingsPage']
@@ -100,19 +103,38 @@ if (!class_exists('PhpRockets_UltimateMedia_Config'))
                     'slug' => $this->plugin_url_prefix . '-support',
                     'handle' => [PhpRockets_UltimateMedia_Settings::class, 'renderFeedbackPage']
                 ],
-                'menu_level_'. ++$menu_key => [
+                'menu_level_addons' => [
                     'page_title' => 'AddOns',
                     'text' => '<b style="color: #fce61b;"><i class="dashicons dashicons-admin-plugins"> </i> AddOns</b>',
                     'slug' => $this->plugin_url_prefix . '-addons',
                     'handle' => [PhpRockets_UltimateMedia_Settings::class, 'renderAddOnPage']
                 ],
             ];
+            apply_filters('ucm_menu_hook', 1);
 
             if ($key) {
-                return $menu[$key];
-
+                return self::$menu[$key];
             }
-            return $menu;
+            return self::$menu;
+        }
+
+        /**
+         * @param [] $args
+         */
+        public function afterMenuHook($input)
+        {
+            if (isset($GLOBALS['ucm']['menu']) && $GLOBALS['ucm']['menu']) {
+                foreach ($GLOBALS['ucm']['menu'] as $args) {
+                    if (!array_key_exists($args['key'], self::$menu)) {
+                        self::$menu[$args['key']] = [
+                            'page_title' => $args['page_title'],
+                            'text' => $args['text'],
+                            'slug' => $this->plugin_url_prefix . $args['slug'],
+                            'handle' => $args['handle']
+                        ];
+                    }
+                }
+            }
         }
 
         /**
@@ -156,7 +178,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Config'))
         public function getAddOns()
         {
             if (isset($GLOBALS['ucm']['addons'])) {
-                self::$registered_addons['external'] = $GLOBALS['ucm']['addons'];
+                self::$registered_addons['external'] = apply_filters('ucm_external_addons_check', $GLOBALS['ucm']['addons']);
             }
 
             return self::$registered_addons;

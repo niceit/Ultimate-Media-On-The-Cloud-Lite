@@ -72,6 +72,17 @@ Bugs fixes
 
 == Changelog ==
 
+
+= 1.50.5 ==
+* Release WP UCM File Manager Add-On (Check https://www.phprockets.com/ucm-wp-file-manager) - FREE
+* Bring better user experiences
+* Bug fixes and enhancements
+
+= 1.50.1 ==
+* Support External Add-On (Check https://www.phprockets.com/ucm-addons for available addons)
+* UI Improvements
+* Bug fixes and enhancements
+
 = 1.22.05 =
 * Support Amazon S3.
 * Support Google Cloud Storage.
@@ -80,9 +91,3 @@ Bugs fixes
 * Keep/UnKeep local media
 * HTTP/HTTPS cloud source protocols
 * Delete Cloud media when remove attachment.
-
-
-= 1.50.1 ==
-* Support External Add-On (Check https://www.phprockets.com/ucm-addons for available addons)
-* UI Improvements
-* Bug fixes and enhancements

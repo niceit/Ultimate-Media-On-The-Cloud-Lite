@@ -23,14 +23,17 @@ if (!class_exists('PhpRockets_UltimateMedia_Root')) {
          * @param array  $params
          * @param bool   $send_content
          * @param bool   $system_template
+         * @param string $type AddOn Type
          * @return false|string
          */
-        public static function renderTemplate($name, $params = [], $send_content = true, $system_template = true)
+        public static function renderTemplate($name, $params = [], $send_content = true, $system_template = true, $type = 'builtin')
         {
             if ($system_template) {
                 $template_path = ULTIMATE_MEDIA_PLG_DIR ."/includes/systems/tpl/{$name}.php";
-            } else {
+            } else if ($type === 'builtin') {
                 $template_path = ULTIMATE_MEDIA_PLG_DIR ."/includes/addons/tpl/{$name}.php";
+            } else {
+                $template_path = "{$name}.php";
             }
             if (!file_exists($template_path)) {
                 $content = '';
@@ -85,8 +88,6 @@ if (!class_exists('PhpRockets_UltimateMedia_Root')) {
             return $key === self::$page;
         }
 
-
-
         /**
          * Check if a request is in post method
          * @return bool
@@ -94,6 +95,32 @@ if (!class_exists('PhpRockets_UltimateMedia_Root')) {
         public static function isPost()
         {
             return $_SERVER['REQUEST_METHOD'] === 'POST';
+        }
+
+        /**
+         * Get Post data
+         *
+         * @param string $key
+         * @return mixed|array|null
+         */
+        public static function getPost($key)
+        {
+            if (isset($_POST[$key])) {
+                if (is_string($_POST[$key])) {
+                    return sanitize_text_field($_POST[$key]);
+                }
+
+                if (is_array($_POST[$key])) {
+                    $data = $_POST[$key];
+                    foreach ($data as $idx => $val) {
+                        $data[$idx] = sanitize_text_field($val);
+                    }
+
+                    return $data;
+                }
+            }
+
+            return null;
         }
 
         /**
@@ -123,29 +150,39 @@ if (!class_exists('PhpRockets_UltimateMedia_Root')) {
         }
 
         /**
-         * Get Post data
+         * Override Wordpress get option to suit UCM
+         * @param        $option_key
+         * @param string $default_value
          *
-         * @param string $key
-         * @return mixed|array|null
+         * @return mixed
          */
-        public static function getPost($key)
+        public static function ucmGetOption($option_key, $default_value = '')
         {
-            if (isset($_POST[$key])) {
-                if (is_string($_POST[$key])) {
-                    return sanitize_text_field($_POST[$key]);
-                }
+            return get_option(self::$configs->plugin_db_prefix . $option_key, $default_value);
+        }
 
-                if (is_array($_POST[$key])) {
-                    $data = $_POST[$key];
-                    foreach ($data as $idx => $val) {
-                        $data[$idx] = sanitize_text_field($val);
-                    }
+        /**
+         * Override Wordpress update option to suit UCM
+         * @param $option_key
+         * @param $option_value
+         *
+         * @return mixed
+         */
+        public static function ucmUpdateOption($option_key, $option_value)
+        {
+            return update_option(self::$configs->plugin_db_prefix . $option_key, $option_value);
+        }
 
-                    return $data;
-                }
-            }
-
-            return null;
+        /**
+         * Override Wordpress delete option to suit UCM
+         * @param $option_key
+         * @param $option_value
+         *
+         * @return mixed
+         */
+        public static function ucmDeleteOption($option_key)
+        {
+            return delete_option(self::$configs->plugin_db_prefix . $option_key);
         }
     }
 }

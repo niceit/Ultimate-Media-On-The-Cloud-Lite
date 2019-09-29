@@ -77,5 +77,30 @@ if (!class_exists('PhpRockets_UCM_Addons'))
          * @return mixed
          */
         abstract public function getAdapterStorageUrl($url, $attachment_storage_meta);
+
+        /**
+         * @param integer $id Account ID
+         * @return array
+         */
+        abstract public function listBuckets($id, $is_ajax = false);
+
+        /**
+         * Update the ACL permission for Objects
+         *
+         * @param PhpRockets_Model_Accounts $account
+         * @param array  $objects
+         * @param string $bucket
+         * @param string $acl
+         * @return WP_Error|bool
+         */
+        abstract public function updateObjectsAcl($account, $objects, $bucket, $acl = 'public');
+
+        /**
+         * Init the AddOn client object
+         *
+         * @param array $args
+         * @return mixed
+         */
+        abstract public function initClient($args);
     }
 }

@@ -3,5 +3,5 @@
         <option value="<?php echo $bucket ?>"><?php echo $bucket ?></option>
     <?php endforeach ?>
 <?php else : ?>
-    <option value="">-Empty Bucket-</option>
+    <option value=""><?php _e('-Empty Bucket-', 'ultimate-media-on-the-cloud') ?></option>
 <?php endif ?>

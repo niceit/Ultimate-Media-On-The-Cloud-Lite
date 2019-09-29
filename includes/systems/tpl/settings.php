@@ -3,7 +3,7 @@
         <?php include ULTIMATE_MEDIA_PLG_DIR .'/includes/systems/tpl/common/header.php' ?>
         <div class="ucm-settings-body box column is-full has-background-white relative">
             <?php echo $loading_box ?>
-            <div class="tabs" style="margin-bottom: 5px;">
+            <div class="tabs is-boxed" style="margin-bottom: 5px;">
                 <ul style="border-bottom: none;">
                     <li <?php if (!$ucm_tab) : ?>class="is-active"<?php endif ?>>
                         <a class="ucm-settings-nav" href="javascript:;" data-target="ucm-general">

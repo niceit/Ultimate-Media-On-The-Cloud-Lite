@@ -12,6 +12,9 @@ use Aws\S3\S3Client;
 if (!class_exists('PhpRockets_UCM_AmazonS3_AddOn')) {
     class PhpRockets_UCM_AmazonS3_AddOn extends PhpRockets_UCM_Addons
     {
+        /* Alias key for using add hook,db,etc.. */
+        public static $addon_alias_key = 'aws';
+
         /**
          * AddOn Information
         **/
@@ -33,11 +36,11 @@ if (!class_exists('PhpRockets_UCM_AmazonS3_AddOn')) {
         public function register()
         {
             apply_filters('ucm_register_addons_vendor', 'aws-sdk-v3' . DIRECTORY_SEPARATOR . 'aws-autoloader.php', 'builtin');
-            add_filter('ucm_aws_upload_media', [$this, 'doPushAttachment'], $this::$configs->default_order , 1);
+            add_filter('ucm_'. self::$addon_alias_key .'_upload_media', [$this, 'doPushAttachment'], $this::$configs->default_order , 1);
             if (get_option(self::$configs->plugin_db_prefix .'advanced_delete_cloud_file')) {
-                add_filter('ucm_aws_cloud_remove_file', [$this, 'doRemoveAttachmentMedia'], $this::$configs->default_order, 1);
+                add_filter('ucm_'. self::$addon_alias_key .'_cloud_remove_file', [$this, 'doRemoveAttachmentMedia'], $this::$configs->default_order, 1);
             }
-            add_filter('ucm_aws_cloud_file_url', [$this, 'getAdapterStorageUrl'], $this::$configs->default_order, 2);
+            add_filter('ucm_'. self::$addon_alias_key .'_cloud_file_url', [$this, 'getAdapterStorageUrl'], $this::$configs->default_order, 2);
         }
 
         /**
@@ -78,6 +81,17 @@ if (!class_exists('PhpRockets_UCM_AmazonS3_AddOn')) {
         }
 
         /**
+         * Init the S3 AWS client object
+         *
+         * @param array $args
+         * @return S3Client
+         */
+        public function initClient($args)
+        {
+            return new S3Client($args);
+        }
+
+        /**
          * Build the view form template
          *
          * @return false|string
@@ -88,7 +102,7 @@ if (!class_exists('PhpRockets_UCM_AmazonS3_AddOn')) {
             $messages = [];
             $amz_account = PhpRockets_Model_Accounts::query([
                 'conditions' => [
-                    'storage_adapter' => 'aws',
+                    'storage_adapter' => self::$addon_alias_key,
                     'is_default' => 1
                 ],
                 'limit' => 1
@@ -249,7 +263,6 @@ if (!class_exists('PhpRockets_UCM_AmazonS3_AddOn')) {
         {
             if (self::isPost()) {
                 $data = self::getPost('data');
-                //TODO Tran add Validation $data
                 $unit_test = self::doUnitSettingsTest($data);
                 if (is_wp_error($unit_test)) {
                     /** @var WP_Error $unit_test */
@@ -366,6 +379,7 @@ if (!class_exists('PhpRockets_UCM_AmazonS3_AddOn')) {
                 if ($storage_metadata['account_id']) {
                     $adapter_account = PhpRockets_Model_Accounts::query([
                         'conditions' => [
+                            'storage_adapter' => self::$addon_alias_key,
                             'id' => $storage_metadata['account_id']
                         ]
                     ]);
@@ -463,6 +477,7 @@ if (!class_exists('PhpRockets_UCM_AmazonS3_AddOn')) {
                 $app_secret = $data['app_secret'];
                 $region = $data['region'];
 
+                /* Init S3 client */
                 $aws_s3 = new S3Client([
                     'version' => 'latest',
                     'region' => $region,
@@ -584,6 +599,91 @@ if (!class_exists('PhpRockets_UCM_AmazonS3_AddOn')) {
                 'Bucket' => $data['bucket'],
                 'Key' => 'test.txt'
             ]);
+
+            return true;
+        }
+
+        /**
+         * @param integer $id Account ID
+         * @param bool    $is_ajax
+         * @return array|WP_Error
+         */
+        public function listBuckets($id, $is_ajax = false)
+        {
+            $account = PhpRockets_Model_Accounts::query([
+                'conditions' => [
+                    'id' => $id
+                ]
+            ]);
+            $bucket_arr = [];
+            if ($account){
+                $account_data = unserialize($account['value']);
+                $aws_s3 = new S3Client([
+                    'version' => 'latest',
+                    'region' => $account_data['region'],
+                    'scheme' => 'http',
+                    'credentials' => array(
+                        'key' => $account_data['app_key'],
+                        'secret' => $account_data['app_secret']
+                    ),
+                    'curl.options' => [CURLOPT_VERBOSE => true]
+                ]);
+                try {
+                    $buckets = $aws_s3->listBuckets();
+                    foreach ($buckets['Buckets'] as $bucket) {
+                        $bucket_arr[$bucket['Name']] = $bucket['Name'];
+                    }
+                } catch (S3Exception $e) {
+                    if ($is_ajax) {
+                        wp_send_json_error(['message' => $e->getAwsErrorMessage()]);
+                        wp_die();
+                    }
+
+                    $WP_Error = new WP_Error();
+                    $WP_Error->add('exception', $e->getAwsErrorMessage());
+                    return $WP_Error;
+                }
+            }
+
+            return $bucket_arr;
+        }
+
+        /**
+         * Update the ACL permission for Objects
+         *
+         * @param PhpRockets_Model_Accounts $account
+         * @param array  $objects
+         * @param string $bucket
+         * @param string $acl
+         * @return WP_Error|bool
+         */
+        public function updateObjectsAcl($account, $objects, $bucket, $acl = 'public-read') {
+            $account_data = unserialize($account['value']);
+            $aws_s3 = new S3Client([
+                'version' => 'latest',
+                'region' => $account_data['region'],
+                'scheme' => 'http',
+                'credentials' => array(
+                    'key' => $account_data['app_key'],
+                    'secret' => $account_data['app_secret']
+                ),
+                'curl.options' => [CURLOPT_VERBOSE => true]
+            ]);
+
+            /* Apply updating object permissions */
+            foreach ($objects as $object) {
+                try {
+                    $aws_s3->putObjectAcl([
+                        'Bucket' => $bucket,
+                        'Key' => $object,
+                        'ACL' => $acl
+                    ]);
+                } catch (S3Exception $e) {
+                    $WP_Error = new WP_Error();
+                    $WP_Error->add('exception', $e->getAwsErrorMessage());
+                    return $WP_Error;
+                }
+            }
 
             return true;
         }

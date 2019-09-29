@@ -1,20 +1,5 @@
 /*! Ultimate Media On The Cloud | (c) PhpRockets Team | Settings Page */
 jQuery(function () {
-    /**
-     * Main functionally
-     * */
-    var tab_body = jQuery('.ucm-settings-body .tabs').find('li.is-active a').data('target');
-    jQuery('#'+ tab_body).show();
-
-    jQuery('a.ucm-settings-nav').click(function() {
-        jQuery('.ucm-settings-body').find('.tabs').find('li').removeClass('is-active');
-        jQuery(this).parent('li').addClass('is-active');
-
-        var jTargetPanel = jQuery(this).data('target');
-        jQuery('.ucm-settings-body').find('.panel-body').hide();
-        jQuery('.ucm-settings-body').find('.panel-body#'+ jTargetPanel).show();
-    });
-
     jQuery('#btn-ucm-general').click(function (e){
         e.preventDefault();
         phpR_UCM.toast.hide();
@@ -65,15 +50,6 @@ jQuery(function () {
             }
         });
 
-    });
-
-    jQuery('.ucm-accounts-tab-links a').click(function(e) {
-        e.preventDefault();
-        jQuery('.ucm-accounts-tab-links a').removeClass('is-active');
-        jQuery(this).addClass('is-active');
-        var jPanelTarget = jQuery('#'+ jQuery(this).data('id'));
-        jQuery('.account-panel-body').removeClass('is-active');
-        jPanelTarget.addClass('is-active');
     });
     /*End Main functionally*/
 

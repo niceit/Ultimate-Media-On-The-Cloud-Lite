@@ -1,0 +1,5 @@
+{
+    "require": {
+        "patchwork/jsqueeze": "^2.0"
+    }
+}

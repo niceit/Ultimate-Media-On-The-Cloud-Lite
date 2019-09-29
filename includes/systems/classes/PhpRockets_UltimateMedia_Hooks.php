@@ -77,7 +77,24 @@ if (!class_exists('PhpRockets_UltimateMedia_Hooks'))
                 wp_enqueue_style('bulma', plugin_dir_url(ULTIMATE_MEDIA_PLG_FILE) .'assets/css/bulma'. self::$configs->enqueue_assets_suffix .'.css');
                 wp_enqueue_style('phprockets-ucm', plugin_dir_url(ULTIMATE_MEDIA_PLG_FILE) .'assets/css/phprockets-ucm'. self::$configs->enqueue_assets_suffix .'.css');
                 wp_enqueue_script('fontawesome-ucm', plugin_dir_url(ULTIMATE_MEDIA_PLG_FILE) .'assets/js/fa-all.js');
+                wp_enqueue_script('phprockets-ucm-general', plugin_dir_url(ULTIMATE_MEDIA_PLG_FILE) .'assets/js/ucm-general'. self::$configs->enqueue_assets_suffix .'.js', ['jquery']);
+                wp_localize_script( 'phprockets-ucm-general', 'phprockets_news', ['url' => admin_url('admin-ajax.php?action='. self::$configs->plugin_url_prefix . '-news')]);
+
+                /* Addition script added */
+                if (has_filter('alter_register_ucm_asset')) {
+                    apply_filters('alter_register_ucm_asset', null);
+                }
             }
+        }
+
+        /**
+         * Free FooBox image popup
+         */
+        public static function loadFooBox()
+        {
+            wp_enqueue_style('foobox-free-css', plugin_dir_url(ULTIMATE_MEDIA_PLG_FILE) .'assets/foobox/css/foobox.free.min.css');
+            wp_enqueue_script('foobox-free-js', plugin_dir_url(ULTIMATE_MEDIA_PLG_FILE) .'assets/foobox/js/foobox.free.min.js', ['jquery']);
+            wp_add_inline_script('foobox-free-js', 'var FOOBOX = window.FOOBOX = {ready: true,preloadFont: true,disableOthers: false,o: {wordpress: { enabled: true }, countMessage:\'image %index of %total\', excludes:\'.fbx-link,.nofoobox,.nolightbox,a[href*="pinterest.com/pin/create/button/"]\', affiliate : { enabled: false }},selectors: [".gallery", ".wp-block-gallery", ".wp-caption", ".wp-block-image", "a:has(img[class*=wp-image-])", ".foobox"],};', 'before');
         }
 
         /**

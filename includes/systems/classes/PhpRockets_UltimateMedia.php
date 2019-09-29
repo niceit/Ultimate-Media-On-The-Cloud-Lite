@@ -8,6 +8,9 @@
 if (!class_exists('PhpRockets_UltimateMedia')) {
     class PhpRockets_UltimateMedia extends PhpRockets_UltimateMedia_Root
     {
+        /* Will be used for force register or unload */
+        public static $hook_service = true;
+
         /**
          * PhpRockets_UltimateMedia constructor.
          */
@@ -18,6 +21,17 @@ if (!class_exists('PhpRockets_UltimateMedia')) {
                 self::$page = self::getQuery('page');
                 $this->activeAdapter = $this::getCurrentActiveAdapter();
             }
+            add_filter('ucm_set_hook_service', [$this, 'setHookService'], self::$configs->default_order, 1);
+            add_filter('ucm_external_addons_check', [$this, 'externalAddOnsCheck'], self::$configs->default_order, 1);
+        }
+
+        /**
+         * Force set the UCM hooking service
+         * @param bool $enable
+         */
+        public static function setHookService($enable = true)
+        {
+            self::$hook_service = $enable;
         }
 
         /**
@@ -314,6 +328,57 @@ if (!class_exists('PhpRockets_UltimateMedia')) {
             $content = file_get_contents(self::$configs->getUcmConfig('phprockets_ucm_news_url'));
             wp_send_json_success(['content' => $content ?: '']);
             wp_die();
+        }
+
+        /**
+         * Check the external addons requirements before going to active it
+         * @param $addons
+         * @return array
+         */
+        public static function externalAddOnsCheck($addons)
+        {
+            $ucm_addons_configs = self::$configs->getUcmConfig('external_addons_requirements');
+            $external_addons = [];
+            if ($ucm_addons_configs) {
+                $wp_plugin_dir = plugin_dir_path(ULTIMATE_MEDIA_PLG_DIR);
+                foreach ($addons as $addon_key => $addon_label) {
+                    $addon_dir = $wp_plugin_dir .'ucm-addons-'. $addon_key .'/';
+                    $addon_file_name = '';
+                    foreach (glob("{$addon_dir}*.php") as $file) {
+                        $file = str_replace($addon_dir, '', $file);
+                        if ($file !== 'index.php') {
+                            $addon_file_name = $file;
+                            break;
+                        }
+                    }
+
+                    if ($addon_file_name && array_key_exists($addon_key, $ucm_addons_configs)) {
+                        $addon_data = get_plugin_data($addon_dir . $addon_file_name);
+                        $addon_link = admin_url() .'admin.php?page='. self::$configs->getMenuSlug('menu_level_addons');
+                        if (version_compare($addon_data['Version'], $ucm_addons_configs[$addon_key], '>=')) {
+                            $external_addons[$addon_key] = $addon_label;
+                        } else {
+                            $path = plugin_basename($addon_dir . $addon_file_name);
+                            $required_version = $ucm_addons_configs[$addon_key];
+                            add_action("after_plugin_row_{$path}", static function($plugin_file, $plugin_data, $status ) use ($required_version, $addon_link) {
+                                _e('<tr class="active"><td>&nbsp;</td><td colspan="2">
+                                    <div class="update-message notice inline notice-warning notice-alt"><p>'. __('The Add-On need to be updated to version <b>'. $required_version .'</b> <a href="'. $addon_link .'">Upgrade AddOns</a>', 'ultimate-media-on-the-cloud') .'</p></div>
+                                    </td></tr>', 'ultimate-media-on-the-cloud');
+                            }, 10, 3 );
+
+                            add_action( 'admin_notices', static function() use ($required_version, $addon_link, $addon_label) {
+                                ?>
+                                <div class="notice notice-error is-dismissible">
+                                    <p><?php _e( 'The Add-On <b>'. $addon_label .'</b> need to be updated to version <b>'. $required_version .'</b> <a href="'. $addon_link .'">Upgrade AddOns</a>', 'ultimate-media-on-the-cloud'); ?></p>
+                                </div>
+                                <?php
+                            } );
+                        }
+                    }
+                }
+            }
+
+            return $external_addons;
         }
     }
 }

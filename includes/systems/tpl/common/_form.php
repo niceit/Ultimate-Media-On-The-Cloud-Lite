@@ -38,6 +38,33 @@
                         <?php endif ?>
 
 
+                        <?php if ($field['type'] === 'number') : ?>
+                            <div class="column is-half">
+                                <div class="control <?php if (isset($field['icon'])) : ?>has-icons-left<?php endif ?>">
+                                    <input type="number" <?php if (isset($field['attr']) && !empty($field['attr'])) { foreach ($field['attr'] as $item => $value) { echo ' '. $item .'="'. $value .'"'; } } ?>>
+                                    <?php if (isset($field['icon'])) : ?>
+                                    <span class="icon is-small is-left">
+                                      <i class="<?php echo $field['icon'] ?>"></i>
+                                    </span>
+                                    <?php endif ?>
+                                </div>
+                            </div>
+                        <?php endif ?>
+
+                        <?php if ($field['type'] === 'password') : ?>
+                            <div class="column is-half">
+                                <div class="control <?php if (isset($field['icon'])) : ?>has-icons-left<?php endif ?>">
+                                    <input type="password" <?php if (isset($field['attr']) && !empty($field['attr'])) { foreach ($field['attr'] as $item => $value) { echo ' '. $item .'="'. $value .'"'; } } ?>>
+                                    <?php if (isset($field['icon'])) : ?>
+                                    <span class="icon is-small is-left">
+                                      <i class="<?php echo $field['icon'] ?>"></i>
+                                    </span>
+                                    <?php endif ?>
+                                </div>
+                            </div>
+                        <?php endif ?>
+
+
                         <?php if ($field['type'] === 'tags') : ?>
                             <?php
                                 if (isset($field['attr'], $field['attr']['value']) && is_array($field['attr']['value'])) {
@@ -48,7 +75,7 @@
                                 }
                                 unset($field['attr']['value']);
                             ?>
-                            <div class="column is-half input-tags">
+                            <div class="column is-half input-tags relative">
                                 <div class="tags-wrap">
                                     <?php if (isset($tags_values)) : ?>
                                         <?php foreach ($tags_values as $tags_value) : ?>
@@ -67,22 +94,51 @@
                                       <i class="<?php echo $field['icon'] ?>"></i>
                                     </span>
                                     <?php endif ?>
+                                    <?php if (isset($field['hints'])) : ?>
+                                    <div class="tags-hints">
+                                        <ul></ul>
+                                    </div>
+                                    <?php endif ?>
                                 </div>
                                 <input type="hidden" <?php if (isset($tags_values)) { echo 'value="'. implode(',', $tags_values) .'"'; }?> <?php if (isset($field['attr']) && !empty($field['attr'])) { foreach ($field['attr'] as $item => $value) { echo ' '. $item .'="'. $value .'"'; } } ?>>
                             </div>
                         <?php endif ?>
 
                         <?php if ($field['type'] === 'checkbox') : ?>
-                            <div class="column is-half pt25">
+                            <?php if (isset($field['inline']) && $field['inline']) : ?>
+                                <div class="clearfix"></div>
+                            <?php endif ?>
+                            <div class="column <?php if (isset($field['inline']) && $field['inline']) : ?>is-full<?php else : ?>is-half<?php endif ?> pt25">
                                 <div class="control">
+                                    <?php $val_selected = isset($field['selected']) ? explode(',', $field['selected']) : []; ?>
                                     <?php if (isset($field['value']) && is_array($field['value'])) : ?>
-                                        <?php foreach ($field['value'] as $f_value => $f_value_text) : ?>
-                                            <div class="column is-one-third">
-                                                <input type="checkbox" <?php if (isset($field['attr']) && !empty($field['attr'])) { foreach ($field['attr'] as $item => $value) { echo ' '. $item .'="'. $value .'"'; } } ?> value="<?php echo $value ?>"> <?php echo $f_value_text ?>
+                                        <?php if (isset($field['inline']) && $field['inline']) : ?>
+                                            <div class="column is-full">
+                                                <div class="columns">
+                                                    <div class="column is-one-quarter">
+                                                        <?php $inline_object_count = 0; ?>
+                                                        <?php foreach ($field['value'] as $f_value => $f_value_text) : ?>
+                                                            <input type="checkbox" <?php if (isset($field['attr']) && !empty($field['attr'])) { foreach ($field['attr'] as $item => $value) { echo ' '. $item .'="'. $value .'"'; } } ?> value="<?php echo $f_value ?>"<?php if ($val_selected && \in_array($f_value, $val_selected, false)) : ?> checked<?php endif ?>>
+                                                            <span style="font-size: 13px;"><?php echo $f_value_text ?></span><br>
+                                                            <?php ++$inline_object_count ?>
+                                                            <?php if ($inline_object_count % 25 === 0) : ?>
+                                                                </div>
+                                                                <div class="column is-one-third">
+                                                            <?php endif ?>
+                                                        <?php endforeach ?>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        <?php endforeach ?>
+                                        <?php else : ?>
+                                            <?php foreach ($field['value'] as $f_value => $f_value_text) : ?>
+                                                <div class="column is-one-third">
+                                                    <input type="checkbox" <?php if (isset($field['attr']) && !empty($field['attr'])) { foreach ($field['attr'] as $item => $value) { echo ' '. $item .'="'. $value .'"'; } } ?> value="<?php echo $f_value ?>"<?php if ($val_selected && \in_array($f_value, $val_selected, false)) : ?> checked<?php endif ?>>
+                                                    <?php echo $f_value_text ?>
+                                                </div>
+                                            <?php endforeach ?>
+                                        <?php endif ?>
                                     <?php else : ?>
-                                        <input type="checkbox" <?php if (isset($field['attr']) && !empty($field['attr'])) { foreach ($field['attr'] as $item => $value) { echo ' '. $item .'="'. $value .'"'; } } ?>>
+                                        <input type="checkbox" <?php if (isset($field['attr']) && !empty($field['attr'])) { foreach ($field['attr'] as $item => $value) { echo ' '. $item .'="'. $value .'"'; } } ?><?php if (isset($field['checked']) && $field['checked']) : ?> checked<?php endif ?>>
                                     <?php endif ?>
                                 </div>
                             </div>
@@ -124,7 +180,7 @@
                         <?php endif ?>
 
                         <?php if ($field['type'] === 'select') : ?>
-                            <div class="column is-one-fifth">
+                            <div class="column <?php if (isset($field['column'])) : ?><?php echo $field['column'] ?><?php else : ?>is-one-fifth<?php endif ?>">
                                 <div class="control">
                                     <div class="select">
                                         <select<?php if (isset($field['attr']) && !empty($field['attr'])) { foreach ($field['attr'] as $item => $value) { echo ' '. $item .'="'. $value .'"'; } } ?>>
@@ -141,6 +197,15 @@
                             <div class="column is-one-quarter">&nbsp;</div>
                             <div class="column is-half" style="text-align: right">
                                 <a<?php if (isset($field['attr']) && !empty($field['attr'])) { foreach ($field['attr'] as $item => $value) { echo ' '. $item .'="'. $value .'"'; } } ?>> <?php if (isset($field['icon'])) : ?><i class="<?php echo $field['icon'] ?>"> </i><?php endif ?> <?php echo $field['label'] ?></a>
+                            </div>
+                            <div style="clear: both;"></div>
+                        <?php endif ?>
+
+
+                        <?php if ($field['type'] === 'custom-html') : ?>
+                            <div class="column is-one-quarter">&nbsp;</div>
+                            <div class="column is-half">
+                                <?php echo $field['value'] ?>
                             </div>
                             <div style="clear: both;"></div>
                         <?php endif ?>

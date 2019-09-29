@@ -1,6 +1,6 @@
 <?php
 return [
-    'current_version' => '1.50.1',
+    'current_version' => '1.50.5',
     'current_release' => 'Lite',
     'online_document_url' => 'http://ucm.phprockets.com/documentations/index.html',
     'plugin_url' => 'https://wordpress.org/extend/plugins/ultimate-media-on-the-cloud-lite/',
@@ -30,5 +30,9 @@ return [
     'plugin_db_prefix' => 'phpr_ucm_',
 
     //Menu Icon
-    'plugin_icon_file' => '/assets/images/ucm-icon.png'
+    'plugin_icon_file' => '/assets/images/ucm-icon.png',
+
+    'external_addons_requirements' => [
+        'digitalocean' => '1.2'
+    ]
 ];

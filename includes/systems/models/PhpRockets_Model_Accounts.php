@@ -8,7 +8,10 @@
 if (!class_exists('PhpRockets_Model_Accounts')) {
     class PhpRockets_Model_Accounts extends PhpRockets_Models
     {
+        /* Table name */
         private static $table = 'accounts';
+
+        /* alias name for query */
         private static $alias = 'ucma';
 
         /**
@@ -72,6 +75,10 @@ if (!class_exists('PhpRockets_Model_Accounts')) {
             return $data;
         }
 
+        /**
+         * @param $data
+         * @return false|int
+         */
         public static function create($data)
         {
             global $wpdb;
@@ -86,6 +93,10 @@ if (!class_exists('PhpRockets_Model_Accounts')) {
             ]);
         }
 
+        /**
+         * @param      $storage_adapter
+         * @param null $except_id
+         */
         public static function setAllNoneDefault($storage_adapter, $except_id = null)
         {
             global $wpdb;
@@ -97,6 +108,10 @@ if (!class_exists('PhpRockets_Model_Accounts')) {
             $wpdb->query($sql);
         }
 
+        /**
+         * @param $id
+         * @return false|int
+         */
         public static function delete($id)
         {
             global $wpdb;

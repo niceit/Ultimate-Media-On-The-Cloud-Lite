@@ -7,13 +7,16 @@
  */
 
 use Google\Cloud\Core\Exception\GoogleException;
-    use Google\Cloud\Core\Iterator\ItemIterator;
-    use Google\Cloud\Storage\Bucket;
+use Google\Cloud\Core\Iterator\ItemIterator;
+use Google\Cloud\Storage\Bucket;
 use Google\Cloud\Storage\StorageClient;
 
 if (!class_exists('PhpRockets_UCM_GoogleCloudStorage_AddOn')) {
     class PhpRockets_UCM_GoogleCloudStorage_AddOn extends PhpRockets_UCM_Addons
     {
+        /* Alias key for using add hook,db,etc.. */
+        public static $addon_alias_key = 'google_cloud';
+
         /**
          * AddOn Information
          **/
@@ -35,12 +38,22 @@ if (!class_exists('PhpRockets_UCM_GoogleCloudStorage_AddOn')) {
         public function register()
         {
             apply_filters('ucm_register_addons_vendor', 'google-core/vendor' . DIRECTORY_SEPARATOR . 'autoload.php', 'builtin');
-            add_filter('ucm_google_cloud_upload_media', [$this, 'doPushAttachment'], $this::$configs->default_order , 1);
+            add_filter('ucm_'. self::$addon_alias_key .'_upload_media', [$this, 'doPushAttachment'], $this::$configs->default_order , 1);
             if (get_option(self::$configs->plugin_db_prefix .'advanced_delete_cloud_file')) {
-                add_filter('ucm_google_cloud_cloud_remove_file', [$this, 'doRemoveAttachmentMedia'], $this::$configs->default_order, 1);
+                add_filter('ucm_'. self::$addon_alias_key .'_cloud_remove_file', [$this, 'doRemoveAttachmentMedia'], $this::$configs->default_order, 1);
             }
-            add_filter('ucm_google_cloud_cloud_file_url', [$this, 'getAdapterStorageUrl'], $this::$configs->default_order, 2);
-            add_filter('ucm_google_cloud_verify_key_file_upload', [$this, 'verifyKeyFileUpload'],$this::$configs->default_order, 1);
+            add_filter('ucm_'. self::$addon_alias_key .'_cloud_file_url', [$this, 'getAdapterStorageUrl'], $this::$configs->default_order, 2);
+            add_filter('ucm_'. self::$addon_alias_key .'_verify_key_file_upload', [$this, 'verifyKeyFileUpload'],$this::$configs->default_order, 1);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public function initClient ($args) {
+           return new StorageClient([
+               'projectId' => $args['project_id'],
+               'keyFilePath' => $args['key_file'],
+           ]);
         }
 
         /**
@@ -77,7 +90,7 @@ if (!class_exists('PhpRockets_UCM_GoogleCloudStorage_AddOn')) {
             $messages = [];
             $gg_account = PhpRockets_Model_Accounts::query([
                 'conditions' => [
-                    'storage_adapter' => 'google_cloud',
+                    'storage_adapter' => self::$addon_alias_key,
                     'is_default' => 1
                 ],
                 'limit' => 1
@@ -579,6 +592,9 @@ if (!class_exists('PhpRockets_UCM_GoogleCloudStorage_AddOn')) {
             } catch (InvalidArgumentException $e) {
                 wp_send_json_error(['message' => $e->getMessage()]);
                 wp_die();
+            } catch (\Exception $e) {
+                wp_send_json_error(['message' => implode('<br>', self::_nominateErrorResponse($e))]);
+                wp_die();
             }
 
             //Remove local file if option is Set TRUE
@@ -679,6 +695,150 @@ if (!class_exists('PhpRockets_UCM_GoogleCloudStorage_AddOn')) {
         {
             $allowed_mime_types = ['application/x-pkcs12', 'application/json'];
             return in_array($file['type'], $allowed_mime_types, false);
+        }
+
+        /**
+         * @param integer $id Account ID
+         * @param bool    $is_ajax
+         * @return array|WP_Error
+         */
+        public function listBuckets($id, $is_ajax = false) {
+            $account = PhpRockets_Model_Accounts::query([
+                'conditions' => [
+                    'id' => $id
+                ]
+            ]);
+            $instance = new self;
+            $bucket_arr = [];
+            if ($account){
+                $gg_data = unserialize($account['value']);
+                $project_id = $gg_data['project_id'];
+                $config = [
+                    'keyFilePath' => self::$configs->local_dir_save_key. $gg_data['auth_file'],
+                    'projectId' => $project_id,
+                ];
+
+                /* Init the Google Cloud Storage object */
+                try {
+                    $storage = new StorageClient($config);
+                } catch (\Exception $e) {
+                    $errors = self::_nominateErrorResponse($e);
+                    if ($is_ajax) {
+                        wp_send_json_error(['message' => implode('<br>', $errors)]);
+                        wp_die();
+                    }
+
+                    $WP_Error = new WP_Error();
+                    $WP_Error->add('exception', implode('<br>', $errors));
+                    return $WP_Error;
+                }
+
+                /* Try to list the bucket */
+                try {
+                    $gcloud_buckets = $storage->buckets();
+                } catch (\Exception $e) {
+                    $errors = self::_nominateErrorResponse($e);
+                    if ($is_ajax) {
+                        wp_send_json_error(['message' => implode('<br>', $errors)]);
+                        wp_die();
+                    }
+
+                    $WP_Error = new WP_Error();
+                    $WP_Error->add('exception', implode('<br>', $errors));
+                    return $WP_Error;
+                }
+
+                /* Fetch the buckets */
+                try {
+                    foreach ($gcloud_buckets as $bucket) {
+                        $bucket_name = $bucket->name();
+                        /** @var Bucket $bucket */
+                        $bucket_arr[$bucket_name] = $bucket_name;
+                    }
+                } catch (\Exception $e) {
+                    $errors = self::_nominateErrorResponse($e);
+                    if ($is_ajax) {
+                        wp_send_json_error(['message' => implode('<br>', $errors)]);
+                        wp_die();
+                    }
+
+                    $WP_Error = new WP_Error();
+                    $WP_Error->add('exception', implode('<br>', $errors));
+                    return $WP_Error;
+                }
+            }
+
+            return $bucket_arr;
+        }
+
+        /**
+         * Update the ACL permission for Objects
+         *
+         * @param PhpRockets_Model_Accounts $account
+         * @param array  $objects
+         * @param string $bucket
+         * @param string $acl
+         * @return WP_Error|bool
+         */
+        public function updateObjectsAcl($account, $objects, $bucket, $acl = 'publicRead') {
+            if ($acl === 'private') {
+                $acl = 'projectPrivate';
+            }
+
+            $account_data = unserialize($account['value']);
+            $args = [
+                'project_id' => $account_data['project_id'],
+                'key_file' => self::$configs->local_dir_save_key . $account_data['auth_file']
+            ];
+            $client = $this->initClient($args);
+            $bucketObj = $client->bucket($bucket);
+
+            /* Apply updating object permissions */
+            foreach ($objects as $object) {
+                try {
+                    $cloud_object = $bucketObj->object($object);
+                    $cloud_object->update([], ['predefinedAcl' => $acl]);
+                } catch (\Exception $e) {
+                    $errors = self::_nominateErrorResponse($e);
+                    wp_send_json_error(['message' => implode('<br>', $errors)]);
+                    wp_die();
+                }
+            }
+
+            return true;
+        }
+
+        /**
+         * Parse Google Cloud Error response
+         *
+         * @param Exception $exception
+         * @return array
+         */
+        public static function _nominateErrorResponse(\Exception $exception)
+        {
+            if (!self::_isValidJsonString($exception->getMessage())) {
+                $errors[] = $exception->getMessage();
+                return $errors;
+            }
+
+            $exception_result = json_decode($exception->getMessage(), ARRAY_A);
+            $exc_errors = $exception_result['error']['errors'];
+            $errors = [];
+            foreach ($exc_errors as $exc_error) {
+                $errors[] = $exc_error['message'];
+            }
+
+            return $errors;
+        }
+
+        /**
+         * Check if a string is a valid json string
+         * @param $string
+         * @return bool
+         */
+        private static function _isValidJsonString($string) {
+            json_decode($string);
+            return json_last_error() === JSON_ERROR_NONE;
         }
     }
 }
