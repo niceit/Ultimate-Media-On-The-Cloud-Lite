@@ -8,6 +8,7 @@
                 <img src="<?php echo plugin_dir_url(ULTIMATE_MEDIA_PLG_FILE) ?>assets/images/loading_2x.gif" style="width: 20px; vertical-align: middle;" alt="Loading" width="20">
                 <?php _e('Loading AddOns...', 'ultimate-media-on-the-cloud') ?>
             </div>
+            <div class="ucm-clear-fix"></div>
             <p align="right">
                 <a href="<?php echo admin_url() .'admin.php?page='. $ucm::$configs->getMenuSlug('menu_main') ?>" class="button is-info mt5 mb5"> <?php _e('Back to Settings', 'ultimate-media-on-the-cloud') ?></a>
             </p>

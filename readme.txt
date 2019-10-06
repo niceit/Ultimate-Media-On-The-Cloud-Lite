@@ -74,7 +74,7 @@ Bugs fixes
 
 
 = 1.50.5 ==
-* Release WP UCM File Manager Add-On (Check https://www.phprockets.com/ucm-wp-file-manager) - FREE
+* Release WP UCM File Manager Add-On (Check https://www.phprockets.com/ucm-wordpress-files-manager/) - FREE
 * Bring better user experiences
 * Bug fixes and enhancements
 

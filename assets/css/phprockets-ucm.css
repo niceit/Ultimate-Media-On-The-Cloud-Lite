@@ -852,6 +852,9 @@ img.ucm-banner {
     width: 250px;
     border: 1px solid #ccc;
     padding: 2px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    float: left;
 }
 .ucm-addon-col .ucm-addon-img {
     height: 138px;
