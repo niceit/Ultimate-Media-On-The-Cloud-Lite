@@ -374,6 +374,8 @@ if (!class_exists('PhpRockets_UltimateMedia')) {
                                 <?php
                             } );
                         }
+                    } else {
+                        $external_addons[$addon_key] = $addon_label;
                     }
                 }
             }

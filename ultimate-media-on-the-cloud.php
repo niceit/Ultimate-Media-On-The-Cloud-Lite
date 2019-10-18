@@ -4,7 +4,7 @@ Plugin Name: Ultimate Media On The Cloud (Lite)
 Plugin URI: https://wordpress.org/extend/plugins/ultimate-media-on-the-cloud-lite
 Description: Migrate, move and mange wordpress media on the Cloud Storage Platforms like Amazon S3, Google Cloud and other platforms... Help you to save hosting space/bandwidth and faster delivery the site assets/medias. Support encrypting, optimization, CDN and CloudFront.
 Author: PhpRockets Team
-Version: 1.50.5
+Version: 1.51.0
 Author URI: https://www.phprockets.com
 Network: True
 Text Domain: ultimate-media-on-the-cloud
