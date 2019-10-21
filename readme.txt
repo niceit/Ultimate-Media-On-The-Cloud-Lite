@@ -72,7 +72,7 @@ Bugs fixes
 
 == Changelog ==
 
-= 1.50.1 ==
+= 1.51.0 ==
 * Add support for Wasabi Cloud AddOn (https://www.phprockets.com/ucm-wasabi-addon/)
 * Bug fixes and enhancements
 
