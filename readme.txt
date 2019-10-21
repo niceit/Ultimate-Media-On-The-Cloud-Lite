@@ -72,6 +72,9 @@ Bugs fixes
 
 == Changelog ==
 
+= 1.50.1 ==
+* Add support for Wasabi Cloud AddOn (https://www.phprockets.com/ucm-wasabi-addon/)
+* Bug fixes and enhancements
 
 = 1.50.5 ==
 * Release WP UCM File Manager Add-On (Check https://www.phprockets.com/ucm-wordpress-files-manager/) - FREE
