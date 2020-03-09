@@ -10389,4 +10389,7 @@ label.panel-block:hover {
     padding: 18rem 1.5rem;
   }
 }
+.ucm-form-content select {
+  background: none;
+}
 /*# sourceMappingURL=bulma.css.map */

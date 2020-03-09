@@ -342,13 +342,16 @@ if (!class_exists('PhpRockets_UCM_AmazonS3_AddOn')) {
 
             $mine_type = isset($data['sizes']['thumbnail']['mime-type']) ? $data['sizes']['thumbnail']['mime-type'] : '';
             $root = $this->correctUploadRootDirForPush($aws_config['cloud_path']);
-
             try {
                 foreach ($files as $file) {
+                    $source = $wp_upload_dir['basedir'] . "/{$file_upload_dir}/{$file}";
+                    if (!file_exists($source)) {
+                        return new WP_Error('exception', "File {$source} does not exist or upload failed.");
+                    }
                     $aws_s3->putObject([
                         'Bucket'       => $aws_config['bucket'],
                         'Key'          => $root . $file_upload_dir .'/' . $file,
-                        'SourceFile'   => $wp_upload_dir['basedir'] . "/{$file_upload_dir}/{$file}",
+                        'SourceFile'   => $source,
                         'ACL'          => 'public-read',
                         'StorageClass' => $aws_config['storage_class'],
                         'ContentType'  => $mine_type,
@@ -443,7 +446,8 @@ if (!class_exists('PhpRockets_UCM_AmazonS3_AddOn')) {
             $wp_upload = wp_upload_dir();
             $aws_root = $this->correctUploadRootDirForPush($attachment_storage_meta['path']);
             $local_upload_path = $wp_upload['baseurl'] .'/';
-            $aws_url = get_option(self::$configs->plugin_db_prefix .'option_scheme') .'://'. $attachment_storage_meta['bucket'] .'.'. $this->labels['uri'] .'/'. $aws_root;
+            $aws_url = get_option(self::$configs->plugin_db_prefix .'option_scheme') .'://'.
+                apply_filters('ucm_storage_media_url_correct_uri', $attachment_storage_meta['bucket'] .'.'. $this->labels['uri'] .'/'. $aws_root);
 
             return str_replace($local_upload_path, $aws_url , $url);
         }

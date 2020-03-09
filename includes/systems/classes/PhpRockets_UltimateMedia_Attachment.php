@@ -10,7 +10,12 @@ if (!class_exists('PhpRockets_UltimateMedia_Attachment')) {
     {
         public function hook()
         {
-            add_action('wp_update_attachment_metadata', [$this, 'updateAttachmentMeta'], $this::$configs->default_order, 2);
+            global $wp_version;
+            if (version_compare($wp_version, '5.3', '>=')) {
+                add_action('wp_generate_attachment_metadata', [$this, 'updateAttachmentMeta'], $this::$configs->default_order, 2);
+            } else {
+                add_action('wp_update_attachment_metadata', [$this, 'updateAttachmentMeta'], $this::$configs->default_order, 2);
+            }
         }
 
         public function userEndHook()
@@ -18,6 +23,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Attachment')) {
             add_action('wp_get_attachment_url', [$this, 'getAttachmentUrl'], $this::$configs->default_order, 2);
             add_filter('wp_calculate_image_srcset', [$this, 'calculateImageSrcset'], $this::$configs->default_order, 5);
             add_filter('ucm_storage_media_url_rewrite', [$this, 'applyCloudStorageUrl'], $this::$configs->default_order, 3);
+            add_filter('ucm_storage_media_url_correct_uri', [$this, 'correctDoubleSplashUri'], $this::$configs->default_order);
 
             /**
              * If option remove Cloud Media is set TRUE
@@ -176,6 +182,17 @@ if (!class_exists('PhpRockets_UltimateMedia_Attachment')) {
             foreach ($files as $file) {
                 @unlink($wp_upload_dir['basedir'] . "/{$file}");
             }
+        }
+
+
+        /**
+         * Correct the path if it has problem with double splash //
+         * @param string $path
+         *
+         * @return string Corrected string uri
+         */
+        public function correctDoubleSplashUri($path) {
+            return str_replace('//', '/', $path);
         }
 
         /**
