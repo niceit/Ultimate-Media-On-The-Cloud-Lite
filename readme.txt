@@ -73,7 +73,7 @@ Bugs fixes
 == Changelog ==
 
 = 1.51.1 ==
-* Wordpress 5.3</strong> and higher
+* Wordpress 5.3 and higher
 * Bug fixes and enhancements
 
 = 1.51.0 ==
