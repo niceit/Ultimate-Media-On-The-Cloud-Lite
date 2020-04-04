@@ -78,9 +78,8 @@
                 </aside>
                 <aside class="message is-success">
                     <div class="message-body message-small">
-                        <h1><?php _e('What news in Pro version?', 'ultimate-media-on-the-cloud') ?></h1>
-                        <p><?php _e('With <b>Pro Version</b> you can have unlocked features as below', 'ultimate-media-on-the-cloud') ?></p>
-                        <?php echo $about_pro ?>
+                        <?php _e('Submit your question to us ', 'ultimate-media-on-the-cloud') ?>
+                        <a href="<?php echo admin_url() .'admin.php?page=' . $ucm::$configs->getUcmConfig('plugin_url_prefix') . '-support' ?>"><?php _e('Contact Us', 'ultimate-media-on-the-cloud') ?></a>
                     </div>
                 </aside>
                 <p align="right">
@@ -88,7 +87,7 @@
                 </p>
             </div>
             <!-- END TAB HELP -->
-            <strong><i><?php _e('Plugin Version '. $ucm::$configs->getUcmConfig('current_version'), 'ultimate-media-on-the-cloud') ?></i></strong>
+            <strong><i><?php _e('Plugin Version '. $ucm::$configs->getUcmConfig('current_version'), 'ultimate-media-on-the-cloud') ?> - Wordpress Version: <?php echo $wp_version ?></i></strong>
         </div>
     </div>
     <?php include ULTIMATE_MEDIA_PLG_DIR .'/includes/systems/tpl/common/news.php' ?>

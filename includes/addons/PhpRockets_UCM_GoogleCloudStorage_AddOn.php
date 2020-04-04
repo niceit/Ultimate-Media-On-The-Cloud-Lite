@@ -580,7 +580,11 @@ if (!class_exists('PhpRockets_UCM_GoogleCloudStorage_AddOn')) {
 
             try {
                 foreach ($files as $file) {
-                    $source_file = fopen($wp_upload_dir['basedir'] . "/{$file_upload_dir}/{$file}", 'r');
+                    $source = $wp_upload_dir['basedir'] . "/{$file_upload_dir}/{$file}";
+                    if (!file_exists($source)) {
+                        return new WP_Error('exception', "File {$source} does not exist or upload failed.");
+                    }
+                    $source_file = fopen($source, 'r');
                     $bucket->upload($source_file, [
                         'name' => $root . $file_upload_dir .'/' . $file,
                         'predefinedAcl' => 'publicRead',
@@ -680,7 +684,8 @@ if (!class_exists('PhpRockets_UCM_GoogleCloudStorage_AddOn')) {
             $wp_upload = wp_upload_dir();
             $gcloud_root = $this->correctUploadRootDirForPush($attachment_storage_meta['path']);
             $local_upload_path = $wp_upload['baseurl'] .'/';
-            $gcloud_url = get_option(self::$configs->plugin_db_prefix .'option_scheme') .'://'. $this->labels['uri'] .'/'. $attachment_storage_meta['bucket'] .'/'. $gcloud_root;
+            $gcloud_url = get_option(self::$configs->plugin_db_prefix .'option_scheme') .'://'.
+                apply_filters('ucm_storage_media_url_correct_uri', $this->labels['uri'] .'/'. $attachment_storage_meta['bucket'] .'/'. $gcloud_root);
 
             return str_replace($local_upload_path, $gcloud_url , $url);
         }

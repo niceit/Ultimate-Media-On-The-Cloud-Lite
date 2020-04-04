@@ -29,8 +29,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
  **/
-use \Rollbar\Rollbar;
-use \Rollbar\Payload\Level;
+
 include_once ABSPATH .'wp-admin/includes/plugin.php';
 /* If user has installed Pro build of Ultimate Media On The Cloud simply de-active it in case prevent conflict */
 if (is_plugin_active('ultimate-media-on-the-cloud/ultimate-media-on-the-cloud.php')) {
@@ -46,12 +45,6 @@ if (is_plugin_active(plugin_basename(__FILE__))) {
     //Start the plugin functionally
     $PhpRocketsUcm = new PhpRockets_UltimateMedia();
     if ($PhpRocketsUcm->isPassCheckRequirement() && $PhpRocketsUcm->isInitialProperly()) {
-        Rollbar::init(
-            array(
-                'access_token' => 'dbee98bcb2a94b429a99db81a0892214',
-                'environment' => 'production'
-            )
-        );
         $PhpRocketsUcm->run();
     }
 }

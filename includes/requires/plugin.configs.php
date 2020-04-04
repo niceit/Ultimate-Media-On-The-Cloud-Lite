@@ -1,6 +1,6 @@
 <?php
 return [
-    'current_version' => '1.51.0',
+    'current_version' => '1.51.1',
     'current_release' => 'Lite',
     'online_document_url' => 'http://ucm.phprockets.com/documentations/index.html',
     'plugin_url' => 'https://wordpress.org/extend/plugins/ultimate-media-on-the-cloud-lite/',

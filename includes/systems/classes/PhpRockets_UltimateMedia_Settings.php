@@ -24,6 +24,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
          */
         public static function renderSettingsPage()
         {
+            global $wp_version;
             $instance = new self;
             $instance->registerEnqueueScript();
 
@@ -36,6 +37,7 @@ if (!class_exists('PhpRockets_UltimateMedia_Settings')) {
                 'form_advanced' => $instance->buildFormAdvanced(),
                 'title' => $instance->labels['title'],
                 'about_pro' => self::renderTemplate('about-pro', null,false),
+                'wp_version' => $wp_version
             ]);
         }
 

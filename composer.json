@@ -1,6 +1,5 @@
 {
     "require": {
-        "patchwork/jsqueeze": "^2.0",
-        "rollbar/rollbar": "~1.5"
+        "patchwork/jsqueeze": "^2.0"
     }
 }
