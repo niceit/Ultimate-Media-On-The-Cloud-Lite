@@ -72,6 +72,10 @@ Bugs fixes
 
 == Changelog ==
 
+= 1.51.1 ==
+* Wordpress 5.3</strong> and higher
+* Bug fixes and enhancements
+
 = 1.51.0 ==
 * Add support for Wasabi Cloud AddOn (https://www.phprockets.com/ucm-wasabi-addon/)
 * Bug fixes and enhancements
